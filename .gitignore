@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -59,3 +60,11 @@ typings/
 
 # next.js build output
 .next
+=======
+.DS_Store
+node_modules
+.env
+npm-debug.log
+build
+dist
+>>>>>>> 4475c8c8a75c607164653587f799df58558b27b6
