@@ -1,10 +1,12 @@
 import React from 'react';
 
+const GOOGLE_BUTTON_ID = 'ijemma';
+
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      googleId: 'test',
+      profile: null,
     };
   }
 
@@ -20,14 +22,14 @@ export default class Login extends React.Component {
   }
 
   onSuccess = (googleUser) => {
-    const profile = googleUser.getBasicProfile();
-    console.log(`Name: ${profile.getName()}`);
+    // docs: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
+    this.setState({ profile: googleUser.getBasicProfile() });
+    console.log(this.state.profile);
   }
   render() {
     return (
-      <div>
-        Ijemma: {this.state.googleId}
-
+      <div className="login-container">
+        <h1 className="login-header">Access your ecospire information!</h1>
         <div id={GOOGLE_BUTTON_ID} />
       </div>
     );
