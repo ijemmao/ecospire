@@ -32,7 +32,7 @@ export default class Facts extends React.Component {
             timeMin: (new Date()).toISOString(),
             showDeleted: false,
             singleEvents: true,
-            maxResults: 10,
+            maxResults: 1000,
             orderBy: 'startTime',
           }).then((response) => {
             console.log(response);
