@@ -43,6 +43,9 @@ export default class Login extends React.Component {
     // docs: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
     this.setState({ profile: googleUser.getBasicProfile() });
     console.log(this.state.profile);
+    if (this.state.profile) {
+      window.location = 'http://localhost:8080/facts';
+    }
   }
   render() {
     return (

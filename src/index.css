@@ -15,10 +15,21 @@ h1 {
   text-align: center;
 }
 
+.facts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-header {
   margin-bottom: 5vh;
 }
 
 #google-login-button div:first-child {
   border-radius: 5px;
+}
+
+.donate-container {
+  margin-bottom: 7vh;
 }
