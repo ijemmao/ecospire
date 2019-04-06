@@ -1,30 +1,26 @@
+const history = require('connect-history-api-fallback');
+const convert = require('koa-connect');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const history = require('connect-history-api-fallback');
-const convert = require('koa-connect');
 
 const env = process.env.NODE_ENV || 'development';
+// set to 'production' or 'development' in your env
 
 const finalCSSLoader = (env === 'production') ? MiniCssExtractPlugin.loader : { loader: 'style-loader' };
 
 module.exports = {
   mode: env,
   output: { publicPath: '/' },
-  entry: ['babel-polyfill', './src'],
-  devtool: 'source-map',
+  entry: ['babel-polyfill', './src'], // this is where our app lives
+  devtool: 'source-map', // this enables debugging with source in chrome devtools
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['react'],
-            },
-          },
+          { loader: 'babel-loader' },
           { loader: 'eslint-loader' },
         ],
       },
@@ -39,15 +35,15 @@ module.exports = {
             },
           },
           {
-            loader: 'postcss-loader',
+            loader: 'sass-loader',
             options: {
-              plugins: () => [autoprefixer()],
               sourceMap: true,
             },
           },
           {
-            loader: 'sass-loader',
+            loader: 'postcss-loader',
             options: {
+              plugins: () => [autoprefixer()],
               sourceMap: true,
             },
           },
@@ -72,6 +68,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
       filename: './200.html',
     }),
   ],
@@ -82,7 +81,7 @@ if (env === 'development') {
     content: [__dirname],
     add: (app, middleware, options) => {
       const historyOptions = {
-        index: '/200.html',
+        index: '/index.html',
       };
       app.use(convert(history(historyOptions)));
     },
