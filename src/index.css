@@ -18,3 +18,7 @@ h1 {
 .login-header {
   margin-bottom: 5vh;
 }
+
+#google-login-button div:first-child {
+  border-radius: 5px;
+}

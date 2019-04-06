@@ -1,7 +1,7 @@
 import React from 'react';
 import anime from 'animejs';
 
-const GOOGLE_BUTTON_ID = 'ijemma';
+const GOOGLE_BUTTON_ID = 'google-login-button';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -20,6 +20,14 @@ export default class Login extends React.Component {
         onsuccess: this.onSuccess,
       },
     );
+    window.gapi.signin2.render(GOOGLE_BUTTON_ID, {
+      scope: 'profile email',
+      width: 240,
+      height: 50,
+      longtitle: true,
+      theme: 'dark',
+      onsuccess: this.onSuccess,
+    });
 
     anime({
       targets: '.login-header',
