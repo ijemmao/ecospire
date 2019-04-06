@@ -22,6 +22,16 @@ h1 {
   align-items: center;
 }
 
+.calculate-container {
+  display:flex;
+  flex-direction:column;
+  text-align:center
+}
+
+.dropdown-container {
+  width: 50%;
+}
+
 .login-header {
   margin-bottom: 5vh;
 }
