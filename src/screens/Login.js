@@ -1,4 +1,5 @@
 import React from 'react';
+import anime from 'animejs';
 
 const GOOGLE_BUTTON_ID = 'ijemma';
 
@@ -19,6 +20,15 @@ export default class Login extends React.Component {
         onsuccess: this.onSuccess,
       },
     );
+
+    anime({
+      targets: '.login-header',
+      translateY: -100,
+      opacity: [0, 1],
+      easing: 'spring(1, 80, 10, 0)',
+      duration: 600,
+      delay: 500,
+    });
   }
 
   onSuccess = (googleUser) => {
