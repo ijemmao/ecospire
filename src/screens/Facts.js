@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Donate from './../components/Donate';
 import airports from './../data/airports.json';
 import env from './../../env.json';
@@ -46,6 +47,18 @@ export default class Facts extends React.Component {
                     }
                   });
                   console.log(originCode, destinationCode);
+
+                  axios({
+                    method: 'POST',
+                    url: 'http://impact.brighterplanet.com/flights.json',
+                    data: {
+                      origin_airport: 'BOS',
+                      destination_airport: 'BOS',
+                    },
+                  })
+                    .then((res) => {
+                      console.log(res);
+                    });
                 }
               }
             });
