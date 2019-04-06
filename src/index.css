@@ -1,0 +1,35 @@
+body {
+  font-family: 'Avenir', sans-serif;
+}
+
+h1 {
+  font-size: 4em;
+}
+
+.login-container {
+  display: flex;
+  height: 70vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.facts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-header {
+  margin-bottom: 5vh;
+}
+
+#google-login-button div:first-child {
+  border-radius: 5px;
+}
+
+.donate-container {
+  margin-bottom: 7vh;
+}
