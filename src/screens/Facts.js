@@ -1,5 +1,6 @@
 import React from 'react';
 import Donate from './../components/Donate';
+import airports from './../data/airports.json';
 import env from './../../env.json';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
@@ -29,28 +30,25 @@ export default class Facts extends React.Component {
         window.gapi.auth2.getAuthInstance().signIn().then(() => {
           window.gapi.client.calendar.events.list({
             calendarId: 'primary',
-            timeMin: (new Date()).toISOString(),
-            showDeleted: false,
-            singleEvents: true,
-            maxResults: 1000,
-            orderBy: 'startTime',
+            alwaysIncludeEmail: true,
+            q: 'flight',
           }).then((response) => {
-            console.log(response);
-            // const events = response.result.items;
-            // this.appendPre('Upcoming events:');
-
-            // if (events.length > 0) {
-            //   for (let i = 0; i < events.length; i += 1) {
-            //     const event = events[i];
-            //     let when = event.start.dateTime;
-            //     if (!when) {
-            //       when = event.start.date;
-            //     }
-            //     this.appendPre(`${event.summary} (${when})`);
-            //   }
-            // } else {
-            //   this.appendPre('No upcoming events found.');
-            // }
+            const events = response.result.items;
+            console.log(events);
+            events.forEach((flight) => {
+              if (flight.location && flight.summary) {
+                if (flight.location.split(' ').length === 2 && (flight.summary.split(' ').length === 3 || flight.summary.split(' ').length === 5)) {
+                  const originCode = flight.location.split(' ')[1];
+                  let destinationCode = '';
+                  airports.forEach((airport) => {
+                    if (airport.city === flight.summary.split(' ')[2]) {
+                      destinationCode = airport.code;
+                    }
+                  });
+                  console.log(originCode, destinationCode);
+                }
+              }
+            });
           });
         });
       });
