@@ -35,7 +35,7 @@ export default class Facts extends React.Component {
             q: 'flight',
           }).then((response) => {
             const events = response.result.items;
-            console.log(events);
+            const airportPromises = [];
             events.forEach((flight) => {
               if (flight.location && flight.summary) {
                 if (flight.location.split(' ').length === 2 && (flight.summary.split(' ').length === 3 || flight.summary.split(' ').length === 5)) {
@@ -46,21 +46,41 @@ export default class Facts extends React.Component {
                       destinationCode = airport.code;
                     }
                   });
-                  console.log(originCode, destinationCode);
 
-                  axios({
+                  airportPromises.push(axios({
                     method: 'POST',
                     url: 'http://impact.brighterplanet.com/flights.json',
                     data: {
-                      origin_airport: 'BOS',
-                      destination_airport: 'BOS',
+                      origin_airport: originCode,
+                      destination_airport: destinationCode,
                     },
-                  })
-                    .then((res) => {
-                      console.log(res);
-                    });
+                  }));
                 }
               }
+            });
+            Promise.all(airportPromises).then((res) => {
+              console.log(res);
+              // res.forEach((item) => {
+              //   const carbonEmissions = {};
+              //   carbonEmissions.carbon = item.data.decisions.carbon.object.value * 2.205;
+              //   carbonEmissions.equivalents = {
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     weeks_of_veganism: item.equivalents.weeks_of_veganism,
+              //     months_of_veganism: item.equivalents.months_of_veganism,
+              //     years_of_veganism: item.equivalents.years_of_veganism,
+              //     lightbulbs_for_a_year: item.equivalents.lightbulbs_for_a_year,
+              //     lightbulbs_for_a_month: item.equivalents.lightbulbs_for_a_month,
+              //     lightbulbs_for_a_week: item.equivalents.lightbulbs_for_a_week,
+              //     lightbulbs_for_an_evening: item.equivalents.lightbulbs_for_an_evening,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+              //     days_of_veganism: item.equivalents.days_of_veganism,
+
+              //   };
+              // });
             });
           });
         });
