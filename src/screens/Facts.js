@@ -59,28 +59,28 @@ export default class Facts extends React.Component {
               }
             });
             Promise.all(airportPromises).then((res) => {
-              console.log(res);
-              // res.forEach((item) => {
-              //   const carbonEmissions = {};
-              //   carbonEmissions.carbon = item.data.decisions.carbon.object.value * 2.205;
-              //   carbonEmissions.equivalents = {
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     weeks_of_veganism: item.equivalents.weeks_of_veganism,
-              //     months_of_veganism: item.equivalents.months_of_veganism,
-              //     years_of_veganism: item.equivalents.years_of_veganism,
-              //     lightbulbs_for_a_year: item.equivalents.lightbulbs_for_a_year,
-              //     lightbulbs_for_a_month: item.equivalents.lightbulbs_for_a_month,
-              //     lightbulbs_for_a_week: item.equivalents.lightbulbs_for_a_week,
-              //     lightbulbs_for_an_evening: item.equivalents.lightbulbs_for_an_evening,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
-              //     days_of_veganism: item.equivalents.days_of_veganism,
+              res.forEach((item) => {
+                const carbonEmissions = {};
+                carbonEmissions.carbon = item.data.decisions.carbon.object.value * 2.205;
+                carbonEmissions.equivalents = {
+                  days_of_veganism: item.data.equivalents.days_of_veganism,
+                  weeks_of_veganism: item.data.equivalents.weeks_of_veganism,
+                  months_of_veganism: item.data.equivalents.months_of_veganism,
+                  years_of_veganism: item.data.equivalents.years_of_veganism,
+                  lightbulbs_for_a_year: item.data.equivalents.lightbulbs_for_a_year,
+                  lightbulbs_for_a_month: item.data.equivalents.lightbulbs_for_a_month,
+                  lightbulbs_for_a_week: item.data.equivalents.lightbulbs_for_a_week,
+                  lightbulbs_for_an_evening: item.data.equivalents.lightbulbs_for_an_evening,
+                  homes_electricity_in_a_year: item.data.equivalents.homes_electricity_in_a_year,
+                  homes_electricity_in_a_month: item.data.equivalents.homes_electricity_in_a_month,
+                  homes_electricity_in_a_week: item.data.equivalents.homes_electricity_in_a_week,
+                  homes_electricity_in_a_day: item.data.equivalents.homes_electricity_in_a_day,
+                  homes_with_lowered_thermostat_2_degrees_for_a_winter: item.data.equivalents.homes_with_lowered_thermostat_2_degrees_for_a_winter,
+                  homes_with_raised_thermostat_3_degrees_for_a_summer: item.data.equivalents.homes_with_raised_thermostat_3_degrees_for_a_summer,
 
-              //   };
-              // });
+                };
+                console.log(carbonEmissions);
+              });
             });
           });
         });
