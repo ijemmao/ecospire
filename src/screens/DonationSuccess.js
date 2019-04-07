@@ -8,7 +8,7 @@ export default class DonationSuccess extends React.Component {
       <div className="success-container">
         <div className="icon-container success-icon" />
         <div className="success-text"> Donation successful. Your donation has successfully completed. </div>
-        <div className="buttonsemantic-container"> <ButtonSemantic text="Okay" />
+        <div className="buttonsemantic-container"> <ButtonSemantic text="Okay" onClick={() => { window.location = 'http://localhost:8080/facts/112849541096408018577'; }} />
         </div>
       </div>
     );

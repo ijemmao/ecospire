@@ -21,7 +21,7 @@ const App = () => {
                   <Link to="/overview/" href="/overview">Overview</Link>
                 </li>
                 <li>
-                  <Link to="/facts/" href="/facts">Facts</Link>
+                  <Link to="/facts/112849541096408018577" href="/facts/112849541096408018577">Facts</Link>
                 </li>
                 <li>
                   <Link to="/donate/" href="/donate">Donate</Link>
