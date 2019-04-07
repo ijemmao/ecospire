@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
+import { Dropdown } from 'semantic-ui-react';
 import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
+// import CheckoutForm from './../components/CheckoutForm';
+import * as firebaseCalls from '../firebaseCalls';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
@@ -98,12 +101,30 @@ const barGraphOptions = {
     }],
   },
 };
+const timeframes = [
+  {
+    key: 'week',
+    text: 'in the past week',
+    value: 'week',
+  },
+  {
+    key: 'month',
+    text: 'in the past month',
+    value: 'month',
+  },
+  {
+    key: 'year',
+    text: 'in the past year',
+    value: 'year',
+  },
+];
 
 export default class Facts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // driving: 0,
+      timeframeValue: 'week',
+      minutesInVehicle: 0,
       // flying: 0,
       // averageComparison: 0,
       // offsetFootprint: 0,
@@ -176,6 +197,11 @@ export default class Facts extends React.Component {
       });
     });
     // });
+
+    firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+      this.setState({ minutesInVehicle });
+    });
+    this.handleTimeframeChange = this.handleTimeframeChange.bind(this);
   }
 
   componentDidMount = () => {
@@ -190,10 +216,35 @@ export default class Facts extends React.Component {
       type: 'pie',
       data: pieChartData,
     });
+    firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+      this.setState({ minutesInVehicle });
+    });
   }
 
   appendPre = (message) => {
     console.log(message);
+  }
+
+  handleTimeframeChange = (e, { value }) => {
+    this.setState({
+      timeframeValue: value,
+    });
+    switch (value) {
+      case 'month':
+        firebaseCalls.getPastMonthVehicleStats((minutesInVehicle) => {
+          this.setState({ minutesInVehicle });
+        });
+        break;
+      case 'year':
+        firebaseCalls.getPastYearVehicleStats((minutesInVehicle) => {
+          this.setState({ minutesInVehicle });
+        });
+        break;
+      default:
+        firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+          this.setState({ minutesInVehicle });
+        });
+    }
   }
 
   render() {
@@ -212,6 +263,16 @@ export default class Facts extends React.Component {
 
         <Fact />
         <Fact type="car" position="right" />
+
+        <div>
+          Your carbon footprint <Dropdown
+            fluid
+            selection
+            value={this.state.timeframeValue}
+            onChange={this.handleTimeframeChange}
+            options={timeframes}
+          /> is {this.state.minutesInVehicle}
+        </div>
 
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />
