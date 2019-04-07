@@ -241,3 +241,48 @@ h1 {
   width: 170px;
   text-align: center;
 }
+
+.fact-container {
+  height: 400px;
+  width: 400px;
+  background-image: url('/src/assets/fun-fact-circle.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.fact-container h4 {
+  position: relative;
+  top: 60px;
+}
+
+.icon-container {
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 130px;
+}
+
+.plane {
+  background-image: url('/src/assets/plane.svg');
+}
+
+.car {
+  background-image: url('/src/assets/car.svg');
+  left: 260px;
+}
+
+.left {
+  left: -20vw;
+}
+
+.right {
+  right: -20vw;
+}
