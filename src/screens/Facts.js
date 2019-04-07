@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Chart from 'chart.js';
 import Donate from './../components/Donate';
 import airports from './../data/airports.json';
 import env from './../../env.json';
@@ -8,6 +9,94 @@ const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+const barGraphData = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [{
+    label: '# of Votes',
+    data: [12, 19, 3, 5, 2, 3],
+    backgroundColor: [
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+    ],
+    borderColor: [
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+    ],
+    borderWidth: 1,
+  }],
+};
+
+const pieChartData = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [{
+    label: '# of Votes',
+    data: [12, 19, 3, 5, 2, 3],
+    backgroundColor: [
+      'rgba(112, 243, 253, 1)',
+      'rgba(112, 243, 253, 1)',
+      'rgba(112, 243, 253, 1)',
+      'rgba(138, 93, 226, 1)',
+      'rgba(138, 93, 226, 1)',
+      'rgba(138, 93, 226, 1)',
+    ],
+    borderColor: [
+      'rgba(10, 218, 255, 1)',
+      'rgba(10, 218, 255, 1)',
+      'rgba(10, 218, 255, 1)',
+      'rgba(221, 86, 240, 1)',
+      'rgba(221, 86, 240, 1)',
+      'rgba(221, 86, 240, 1)',
+    ],
+    borderWidth: 1,
+  }],
+};
+
+const barGraphOptions = {
+  scales: {
+    // yAxes: [{
+    //   ticks: {
+    //     beginAtZero: true,
+    //   },
+    // }],
+    xAxes: [{
+      gridLines: {
+        display: false,
+      },
+    }, {
+      position: 'top',
+      ticks: {
+        display: false,
+      },
+      gridLines: {
+        display: false,
+        drawTicks: false,
+      },
+    }],
+    yAxes: [{
+      gridLines: {
+        display: false,
+      },
+    }, {
+      position: 'right',
+      ticks: {
+        display: false,
+      },
+      gridLines: {
+        display: false,
+        drawTicks: false,
+      },
+    }],
+  },
+};
 
 export default class Facts extends React.Component {
   constructor(props) {
@@ -89,6 +178,17 @@ export default class Facts extends React.Component {
   }
 
   componentDidMount = () => {
+    const bar = document.getElementById('bar-graph');
+    const pie = document.getElementById('pie-chart');
+    new Chart(bar, {
+      type: 'bar',
+      data: barGraphData,
+      options: barGraphOptions,
+    });
+    new Chart(pie, {
+      type: 'pie',
+      data: pieChartData,
+    });
   }
 
   appendPre = (message) => {
@@ -99,6 +199,15 @@ export default class Facts extends React.Component {
     return (
       <div className="facts-container">
         <h1>Here are the Facts</h1>
+        <div className="chart-container">
+          <canvas id="bar-graph" width="400" height="400" />
+        </div>
+        <div className="chart-container">
+          <canvas id="pie-chart" width="400" height="400" />
+        </div>
+
+        <div className="side-ferns" />
+        <div className="side-plants" />
 
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />

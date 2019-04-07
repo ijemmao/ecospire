@@ -108,6 +108,44 @@ h1 {
   outline: none;
 }
 
+.chart-container {
+  height: 400px;
+  width: 400px;
+  margin: 50px 0;
+}
+
+#bar-graph {
+  position: absolute;
+  left: 20vw;
+}
+
+#pie-chart {
+  position: absolute;
+  right: 20vw;
+}
+
+.side-ferns {
+  height: 400px;
+  width: 200px;
+  position: absolute;
+  top: 15vh;
+  right: 0;
+  background-image: url('/src/assets/side-ferns.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.side-plants {
+  height: 400px;
+  width: 324px;
+  position: absolute;
+  top: 70vh;
+  left: 0;
+  background-image: url('/src/assets/side-plants.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .light {
   font-weight: 200;
 }
