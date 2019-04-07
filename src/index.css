@@ -306,6 +306,8 @@ h1 {
 .success-text {
   margin-top:165px;
   font-size:20px;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
