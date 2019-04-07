@@ -1,5 +1,10 @@
-body {
-  font-family: 'Avenir', sans-serif;
+html, body {
+  font-family: 'Avenir', sans-serif !important;
+  
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Avenir', san-serif !important;
 }
 
 h1 {
@@ -41,5 +46,30 @@ h1 {
 }
 
 .donate-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
   margin-bottom: 7vh;
+}
+
+.button-container {
+  height: fit-content;
+  width: fit-content;
+}
+
+.donate-container .button {
+  margin-right: 20px;
+  align-self: center;
+}
+
+.button {
+  height: 40px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: #9d9d9d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
