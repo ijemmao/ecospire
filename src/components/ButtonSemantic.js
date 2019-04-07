@@ -10,7 +10,7 @@ export default class ButtonSemantic extends React.Component {
 
   render() {
     return (
-      <Button> {this.props.text} </Button>
+      <Button className="calculate-button"> {this.props.text} </Button>
     );
   }
 }
