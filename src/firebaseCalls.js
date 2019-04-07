@@ -11,6 +11,28 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 
+export function getUserDetails(userId, callback) {
+  return db.collection('user_details')
+    .where('userId', '==', userId)
+    .get()
+    .then((snapshot) => {
+      if (snapshot.exists) callback(snapshot.pop());
+      else callback(false);
+    });
+}
+
+export function addUserDetails(details) {
+  console.log(details);
+  debugger;
+  db.collection('user_details').add(details)
+    .then((docRef) => {
+      console.log('Document written with ID: ', docRef.id);
+    })
+    .catch((error) => {
+      console.error('Error adding document: ', error);
+    });
+}
+
 export function getPastWeekVehicleStats(callback) {
   const aWeekAgo = new Date();
   let totalTime = 0;
