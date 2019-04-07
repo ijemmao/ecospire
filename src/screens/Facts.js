@@ -5,7 +5,6 @@ import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
-import CheckoutForm from './../components/CheckoutForm';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
