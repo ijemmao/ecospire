@@ -105,6 +105,18 @@ h1 {
   margin-bottom: 7vh;
 }
 
+.donate-container h2 {
+  font-size: 2.5em;
+}
+
+.donate-container p {
+  font-size: 1.5em;
+}
+
+.organization-information {
+  width: 40vw;
+}
+
 .button-container {
   height: fit-content;
   width: fit-content;
@@ -140,7 +152,6 @@ h1 {
 .checkout-container {
   font-size: 18px;
   margin-top: 40px;
-  margin-left: 450px;
   margin-bottom: 40px;
   padding-bottom: 40px;
 }
@@ -362,4 +373,11 @@ a:hover {
 
 .overview-container .calculate-button {
   align-self: center;
+}
+
+.donate-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

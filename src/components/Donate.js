@@ -5,8 +5,8 @@ export default class Donate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Plant Trees',
-      description: 'We aim to make the earth healthier with planting more tress',
+      name: this.props.title || 'Plant Trees',
+      description: this.props.description || 'We aim to make the earth healthier with planting more tress',
     };
   }
 
@@ -14,7 +14,7 @@ export default class Donate extends React.Component {
     return (
       <div className="donate-container">
         <Button label="Donate" />
-        <div>
+        <div className="organization-information">
           <h2>{this.state.name}</h2>
           <p>{this.state.description}</p>
         </div>
