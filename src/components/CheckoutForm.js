@@ -10,6 +10,7 @@ class CheckoutForm extends Component {
   // eslint-disable-next-line class-methods-use-this
   async submit(ev) {
     // User clicked submit
+    window.location = 'http://localhost:8080/success';
   }
 
   render() {
