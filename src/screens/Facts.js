@@ -6,12 +6,15 @@ import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
+// eslint-disable-next-line no-unused-vars
+import CheckoutForm from './../components/CheckoutForm';
 import * as firebaseCalls from '../firebaseCalls';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+const AVG_US_SPEED_KMM = 1.61;
 
 const barGraphData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -123,7 +126,6 @@ export default class Facts extends React.Component {
     super(props);
     this.state = {
       timeframeValue: 'week',
-      minutesInVehicle: 0,
       totalKm: 0,
       // flying: 0,
       // averageComparison: 0,
@@ -171,11 +173,9 @@ export default class Facts extends React.Component {
           });
 
           const vehiclePromises = [];
-          const AVG_US_SPEED_KMM = 1.61;
 
           vehiclePromises.push(firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-            this.setState({ minutesInVehicle });
-            conost totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+            const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
             this.setState({ totalKm });
           }));
 
@@ -223,7 +223,8 @@ export default class Facts extends React.Component {
       data: pieChartData,
     });
     firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-      this.setState({ minutesInVehicle });
+      const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+      this.setState({ totalKm });
     });
   }
 
@@ -238,17 +239,20 @@ export default class Facts extends React.Component {
     switch (value) {
       case 'month':
         firebaseCalls.getPastMonthVehicleStats((minutesInVehicle) => {
-          this.setState({ minutesInVehicle });
+          const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+          this.setState({ totalKm });
         });
         break;
       case 'year':
         firebaseCalls.getPastYearVehicleStats((minutesInVehicle) => {
-          this.setState({ minutesInVehicle });
+          const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+          this.setState({ totalKm });
         });
         break;
       default:
         firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-          this.setState({ minutesInVehicle });
+          const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+          this.setState({ totalKm });
         });
     }
   }
@@ -264,7 +268,7 @@ export default class Facts extends React.Component {
             value={this.state.timeframeValue}
             onChange={this.handleTimeframeChange}
             options={timeframes}
-          /> is {this.state.minutesInVehicle}
+          /> is {this.state.totalKm}
         </div>
         <div className="chart-container">
           <canvas id="bar-graph" width="400" height="400" />
