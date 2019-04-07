@@ -118,7 +118,7 @@ export default class Facts extends React.Component {
       timeframeValue: 'week',
       totalKm: 0,
       totalKg: 0, // total CO2 emissions from Annie's data from car rides
-      carbonEmissions: null,
+      carbonEmissions: {},
       carbonEmissionslbs: null,
       carbonEmissionscost: null,
       minutesInVehicle: 0,
@@ -236,6 +236,8 @@ export default class Facts extends React.Component {
     };
 
     const masterPromises = airportPromises.concat([vehiclePromise]);
+
+    console.log('master promises is: ');
 
     Promise.all(masterPromises).then((res) => {
       res.forEach((item) => {
@@ -389,6 +391,9 @@ export default class Facts extends React.Component {
   }
 
   render() {
+    const URL = 'http://localhost:8080/donate?carbonEmissionscost=';
+    const newURL = URL.concat(String(this.state.carbonEmissionscost));
+
     return (
       <div className="facts-container">
         <h1>Here are the Facts</h1>
@@ -430,7 +435,8 @@ export default class Facts extends React.Component {
         <Fact type="car" position="right" />
         <Fact type="salad" />
 
-        <ButtonSemantic text="Reduce Your Carbon Footprint" onClick={() => { window.location = 'http://localhost:8080/donate'; }} />
+        <ButtonSemantic text="Reduce Your Carbon Footprint" onClick={() => { window.location = newURL; }} />
+
       </div>
     );
   }

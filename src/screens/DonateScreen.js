@@ -8,7 +8,25 @@ export default class DonateScreen extends Component {
     this.state = {
       organization: null,
       renderCheckoutForm: false,
+      // eslint-disable-next-line react/no-unused-state
+      carbonCost: null,
     };
+  }
+
+  componentWillMount = () => {
+    console.log(window.location.href.split('=')[1]);
+    console.log(Math.floor(window.location.href.split('=')[1]));
+    let cost = Math.floor(window.location.href.split('=')[1]);
+    // eslint-disable-next-line eqeqeq
+    if (cost == 0) {
+      cost = 1;
+    }
+    console.log(cost);
+
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      carbonCost: cost,
+    });
   }
 
   handleCheckoutForm = (title) => {
@@ -27,6 +45,7 @@ export default class DonateScreen extends Component {
     return (
       <div className="donate-screen-container">
         <h1>Select an Organization to Donate</h1>
+        <h2> We calculated that the cost of your total carbon emissions is ${this.state.carbonCost} </h2>
         <div className="blue-top" />
         <div className="bottom" />
         <Donate title="Carbon Fund" description="Help fight climate change by going carbon neutral" onClick={() => this.handleCheckoutForm('Carbon Fund')} />
