@@ -2,12 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
 import { Dropdown } from 'semantic-ui-react';
-import Donate from './../components/Donate';
 import Fact from './../components/Fact';
+import ButtonSemantic from './../components/ButtonSemantic';
 import airports from './../data/airports.json';
 import env from './../../env.json';
-// eslint-disable-next-line no-unused-vars
-import CheckoutForm from './../components/CheckoutForm';
 import * as firebaseCalls from '../firebaseCalls';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
@@ -68,11 +66,6 @@ const pieChartData = {
 
 const barGraphOptions = {
   scales: {
-    // yAxes: [{
-    //   ticks: {
-    //     beginAtZero: true,
-    //   },
-    // }],
     xAxes: [{
       gridLines: {
         display: false,
@@ -279,15 +272,19 @@ export default class Facts extends React.Component {
 
         <div className="side-ferns" />
         <div className="side-plants" />
+        <div className="top-blue" />
+        <div className="right-blue" />
+        <div className="left-green" />
+        <div className="right-plants" />
+        <div className="left-plants" />
+        <div className="right-green" />
+        <div className="trees" />
 
         <Fact />
         <Fact type="car" position="right" />
+        <Fact type="salad" />
 
-        <h2>How to Offset your Carbon Footprint:</h2>
-        <Donate />
-        <Donate />
-        <Donate />
-        <Donate />
+        <ButtonSemantic text="Reduce Your Carbon Footprint" onClick={() => { window.location = 'http://localhost:8080/donate'; }} />
       </div>
     );
   }
