@@ -13,6 +13,8 @@ export default class Fact extends React.Component {
       this.setState({ icon: <div className="icon-container car" /> });
     } else if (this.props.type === 'salad') {
       this.setState({ icon: <div className="icon-container salad" /> });
+    } else if (this.props.type === 'lightbulb') {
+      this.setState({ icon: <div className="icon-container lightbulb" /> });
     }
   }
   render() {
