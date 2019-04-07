@@ -54,8 +54,7 @@ export default class Calculate extends React.Component {
             </div>
           </div>
         </div>
-        <div className="button-container">
-          <ButtonSemantic text="See Carbon Footprint" />
+        <div className="buttonsemantic-container"> <ButtonSemantic text="See Carbon Footprint" />
         </div>
       </div>
     );
