@@ -1,7 +1,9 @@
 import React from 'react';
 import anime from 'animejs';
+import env from './../../env.json';
 
 const GOOGLE_BUTTON_ID = 'google-login-button';
+const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -30,7 +32,7 @@ export default class Login extends React.Component {
     });
 
     anime({
-      targets: '.login-header',
+      targets: '.login-header .login-subheader',
       translateY: -100,
       opacity: [0, 1],
       easing: 'spring(1, 80, 10, 0)',
@@ -42,15 +44,23 @@ export default class Login extends React.Component {
   onSuccess = (googleUser) => {
     // docs: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
     this.setState({ profile: googleUser.getBasicProfile() });
-    console.log(this.state.profile);
-    if (this.state.profile) {
-      window.location = 'http://localhost:8080/facts';
-    }
+
+    window.gapi.load('auth2', () => {
+      window.gapi.auth2.init({
+        client_id: CLIENT_ID,
+      }).then(() => {
+        window.gapi.auth2.getAuthInstance().signIn().then(() => {
+          window.location = 'http://localhost:8080/calculate';
+          console.log(this.state.profile);
+        });
+      });
+    });
   }
   render() {
     return (
       <div className="login-container">
-        <h1 className="login-header">Access your ecospire information!</h1>
+        <h1 className="login-header">eco<span className="light">spire</span></h1>
+        <h3 className="login-subheader">See how you can go carbon-neutral</h3>
         <div id={GOOGLE_BUTTON_ID} />
       </div>
     );

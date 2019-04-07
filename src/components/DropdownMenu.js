@@ -23,7 +23,7 @@ export default class DropdownMenu extends React.Component {
 
   render() {
     return (
-      <Menu compact>
+      <Menu compact className="dropdown-container">
         <Dropdown text={this.state.text} onChange={this.handleChange} options={this.props.options} simple item />
       </Menu>
     );
