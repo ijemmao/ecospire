@@ -396,8 +396,7 @@ export default class Facts extends React.Component {
       data: pieChartData,
     });
     firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-      const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-      this.setState({ totalKm });
+      this.setState({ minutesInVehicle });
     });
   }
 
@@ -412,7 +411,7 @@ export default class Facts extends React.Component {
             value={this.state.timeframeValue}
             onChange={this.handleTimeframeChange}
             options={timeframes}
-          /> is {this.state.totalKm}
+          /> is {this.state.carbonEmissions ? Math.floor(this.state.carbonEmissions.totalCarbon) : 0} Kg
         </div>
         <div className="chart-container">
           <canvas id="bar-graph" width="400" height="400" />
