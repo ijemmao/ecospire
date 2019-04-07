@@ -11,6 +11,8 @@ export default class Fact extends React.Component {
   componentWillMount = () => {
     if (this.props.type === 'car') {
       this.setState({ icon: <div className="icon-container car" /> });
+    } else if (this.props.type === 'salad') {
+      this.setState({ icon: <div className="icon-container salad" /> });
     }
   }
   render() {

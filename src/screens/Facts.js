@@ -3,6 +3,7 @@ import axios from 'axios';
 import Chart from 'chart.js';
 import { Dropdown } from 'semantic-ui-react';
 import Fact from './../components/Fact';
+import ButtonSemantic from './../components/ButtonSemantic';
 import airports from './../data/airports.json';
 import env from './../../env.json';
 import * as firebaseCalls from '../firebaseCalls';
@@ -271,9 +272,19 @@ export default class Facts extends React.Component {
 
         <div className="side-ferns" />
         <div className="side-plants" />
+        <div className="top-blue" />
+        <div className="right-blue" />
+        <div className="left-green" />
+        <div className="right-plants" />
+        <div className="left-plants" />
+        <div className="right-green" />
+        <div className="trees" />
 
         <Fact />
         <Fact type="car" position="right" />
+        <Fact type="salad" />
+
+        <ButtonSemantic text="Reduce Your Carbon Footprint" onClick={() => { window.location = 'http://localhost:8080/donate'; }} />
       </div>
     );
   }

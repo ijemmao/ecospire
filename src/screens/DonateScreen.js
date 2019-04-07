@@ -27,6 +27,8 @@ export default class DonateScreen extends Component {
     return (
       <div className="donate-screen-container">
         <h1>Select an Organization to Donate</h1>
+        <div className="blue-top" />
+        <div className="bottom" />
         <Donate title="Carbon Fund" description="Help fight climate change by going carbon neutral" onClick={() => this.handleCheckoutForm('Carbon Fund')} />
         <Donate
           title="Carbon Neutral Charitable Fund"
