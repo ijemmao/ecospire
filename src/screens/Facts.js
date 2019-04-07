@@ -154,6 +154,9 @@ export default class Facts extends React.Component {
           <canvas id="pie-chart" width="400" height="400" />
         </div>
 
+        <div className="side-ferns" />
+        <div className="side-plants" />
+
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />
         <Donate />
