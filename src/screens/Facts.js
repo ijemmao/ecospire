@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Chart from 'chart.js';
 import Donate from './../components/Donate';
 import airports from './../data/airports.json';
 import env from './../../env.json';
@@ -8,6 +9,41 @@ const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+const barGraphData = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [{
+    label: '# of Votes',
+    data: [12, 19, 3, 5, 2, 3],
+    backgroundColor: [
+      'rgb(255, 131, 156, 0.2)',
+      'rgb(255, 131, 156, 0.2)',
+      'rgb(255, 131, 156, 0.2)',
+      'rgb(255, 131, 156, 0.2)',
+      'rgb(255, 131, 156, 0.2)',
+      'rgb(255, 131, 156, 0.2)',
+    ],
+    borderColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 99, 132, 1)',
+      'rgba(255, 99, 132, 1)',
+    ],
+    borderWidth: 1,
+  }],
+};
+
+const barGraphOptions = {
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+      },
+    }],
+  },
+};
 
 export default class Facts extends React.Component {
   constructor(props) {
@@ -89,6 +125,18 @@ export default class Facts extends React.Component {
   }
 
   componentDidMount = () => {
+    const bar = document.getElementById('bar-graph');
+    const pie = document.getElementById('pie-chart');
+    new Chart(bar, {
+      type: 'bar',
+      data: barGraphData,
+      options: barGraphOptions,
+    });
+    new Chart(pie, {
+      type: 'pie',
+      data: barGraphData,
+      options: barGraphOptions,
+    });
   }
 
   appendPre = (message) => {
@@ -99,6 +147,12 @@ export default class Facts extends React.Component {
     return (
       <div className="facts-container">
         <h1>Here are the Facts</h1>
+        <div className="chart-container">
+          <canvas id="bar-graph" width="400" height="400" />
+        </div>
+        <div className="chart-container">
+          <canvas id="pie-chart" width="400" height="400" />
+        </div>
 
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />

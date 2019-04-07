@@ -108,6 +108,11 @@ h1 {
   outline: none;
 }
 
+.chart-container {
+  height: 400px;
+  width: 400px;
+}
+
 .light {
   font-weight: 200;
 }
