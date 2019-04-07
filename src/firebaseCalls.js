@@ -1,4 +1,3 @@
-import axios from 'axios';
 import firebase from 'firebase';
 
 const config = {
@@ -58,16 +57,4 @@ export function getPastYearVehicleStats() {
       });
       console.log(`total minutes last year: ${totalTime}`);
     });
-}
-
-const ROOT_URL = 'https://us-central1-ecospire.cloudfunctions.net';
-
-export function getVehicleStats() {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/getVehicleStats`).then((res) => {
-      dispatch(res);
-    }).catch((error) => {
-      console.error(error);
-    });
-  };
 }
