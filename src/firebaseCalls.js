@@ -11,7 +11,7 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 
-export function getPastWeekVehicleStats() {
+export function getPastWeekVehicleStats(callback) {
   const aWeekAgo = new Date();
   let totalTime = 0;
   aWeekAgo.setDate(aWeekAgo.getDate() - 7);
@@ -23,11 +23,12 @@ export function getPastWeekVehicleStats() {
       snapshot.forEach((entry) => {
         totalTime += entry.data().minuteDifference;
       });
+      callback(totalTime);
       console.log(`total minutes last week: ${totalTime}`);
     });
 }
 
-export function getPastMonthVehicleStats() {
+export function getPastMonthVehicleStats(callback) {
   const aMonthAgo = new Date();
   let totalTime = 0;
   aMonthAgo.setDate(aMonthAgo.getDate() - 31);
@@ -39,11 +40,12 @@ export function getPastMonthVehicleStats() {
       snapshot.forEach((entry) => {
         totalTime += entry.data().minuteDifference;
       });
+      callback(totalTime);
       console.log(`total minutes last month: ${totalTime}`);
     });
 }
 
-export function getPastYearVehicleStats() {
+export function getPastYearVehicleStats(callback) {
   const aYearAgo = new Date();
   let totalTime = 0;
   aYearAgo.setDate(aYearAgo.getDate() - 125);
@@ -55,6 +57,7 @@ export function getPastYearVehicleStats() {
       snapshot.forEach((entry) => {
         totalTime += entry.data().minuteDifference;
       });
+      callback(totalTime);
       console.log(`total minutes last year: ${totalTime}`);
     });
 }
