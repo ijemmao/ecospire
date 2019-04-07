@@ -6,6 +6,7 @@ import Facts from './screens/Facts';
 import Calculate from './screens/Calculate';
 import Overview from './screens/Overview';
 import CheckoutForm from './screens/CheckoutForm';
+import DonationSuccess from './screens/DonationSuccess';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/calculate" component={Calculate} />
           <Route path="/overview" component={Overview} />
           <Route path="/donate" component={CheckoutForm} />
+          <Route path="/success" component={DonationSuccess} />
         </Router>
       </Elements>
     </StripeProvider>
