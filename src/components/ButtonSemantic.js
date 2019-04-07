@@ -9,7 +9,7 @@ export default class ButtonSemantic extends React.Component {
 
   render() {
     return (
-      <Button className="calculate-button" onClick={this.callback}> {this.props.text} </Button>
+      <Button className="calculate-button" onClick={this.props.onClick ? this.props.onClick : this.callback}> {this.props.text} </Button>
     );
   }
 }

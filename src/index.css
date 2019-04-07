@@ -56,6 +56,12 @@ h1 {
   align-items: center;
 }
 
+.facts-container .calculate-button {
+  margin-top: 40vh;
+  font-size: 2em;
+  height: fit-content !important;
+}
+
 .calculate-container {
   height: 100vh;
   display: flex;
@@ -103,6 +109,19 @@ h1 {
   justify-content: center;
   align-content: center;
   margin-bottom: 7vh;
+  margin-top: 3vh;
+}
+
+.donate-container h2 {
+  font-size: 2.5em;
+}
+
+.donate-container p {
+  font-size: 1.5em;
+}
+
+.organization-information {
+  width: 40vw;
 }
 
 .button-container {
@@ -122,7 +141,6 @@ h1 {
 .donate-container .button {
   margin-right: 20px;
   align-self: center;
-  width:100;
   margin-top:20px;
   height: 40px;
   width: 100px;
@@ -140,9 +158,9 @@ h1 {
 .checkout-container {
   font-size: 18px;
   margin-top: 40px;
-  margin-left: 450px;
   margin-bottom: 40px;
   padding-bottom: 40px;
+  width: 600px;
 }
 
 .stripe-label {
@@ -217,7 +235,7 @@ h1 {
   height: 400px;
   width: 200px;
   position: absolute;
-  top: 15vh;
+  top: 30vh;
   right: 0;
   background-image: url('/src/assets/side-ferns.svg');
   background-size: cover;
@@ -231,6 +249,88 @@ h1 {
   top: 70vh;
   left: 0;
   background-image: url('/src/assets/side-plants.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.top-blue {
+  height: 420px;
+  width: 324px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('/src/assets/top-blue.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.right-blue {
+  height: 1400px;
+  width: 324px;
+  position: absolute;
+  top: 20vh;
+  right: 0;
+  background-image: url('/src/assets/right-blue.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.left-green {
+  height: 1400px;
+  width: 400px;
+  position: absolute;
+  top: 110vh;
+  left: 0;
+  background-image: url('/src/assets/left-green.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.right-plants {
+  height: 700px;
+  width: 324px;
+  position: absolute;
+  top: 170vh;
+  right: 0;
+  background-image: url('/src/assets/right-plants.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.left-plants {
+  height: 700px;
+  width: 324px;
+  position: absolute;
+  top: 200vh;
+  left: 0;
+  background-image: url('/src/assets/left-plants.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.right-green {
+  height: 1500px;
+  width: 504px;
+  position: absolute;
+  top: 190vh;
+  right: 0;
+  background-image: url('/src/assets/right-green.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.trees {
+  height: 600px;
+  width: 234px;
+  position: absolute;
+  top: 270vh;
+  right: 0;
+  background-image: url('/src/assets/trees.svg');
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -284,12 +384,17 @@ h1 {
   left: 260px;
 }
 
+.salad {
+  background-image: url('/src/assets/salad.svg');
+  left: 260px;
+}
+
 .left {
-  left: -20vw;
+  left: -15vw;
 }
 
 .right {
-  right: -20vw;
+  right: -15vw;
 }
 
 .success-icon {
@@ -386,4 +491,44 @@ a:hover {
 
 .time-in-car-container h3, .number-flights-container h3 {
   font-size: 2.4em;
+}
+
+.donate-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue-top {
+  height: 900px;
+  width: 440px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url('/src/assets/blue-top.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.bottom {
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  top: 92vh;
+  left: 0;
+  background-image: url('/src/assets/bottom.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.donate-screen-container .calculate-button {
+  bottom: 0px;
+  width: 150px;
+}
+
+.success-container .calculate-button {
+  margin-top: 20vh;
 }

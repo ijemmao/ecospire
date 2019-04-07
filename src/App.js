@@ -5,7 +5,7 @@ import Login from './screens/Login';
 import Facts from './screens/Facts';
 import Calculate from './screens/Calculate';
 import Overview from './screens/Overview';
-import CheckoutForm from './screens/CheckoutForm';
+import DonateScreen from './screens/DonateScreen';
 import DonationSuccess from './screens/DonationSuccess';
 
 const App = () => {
@@ -30,10 +30,10 @@ const App = () => {
             </nav>
           </div>
           <Route path="/" exact component={Login} />
-          <Route path="/facts" component={Facts} />
-          <Route path="/calculate" component={Calculate} />
+          <Route path="/facts/:id" component={Facts} />
+          <Route path="/calculate/:id" component={Calculate} />
           <Route path="/overview" component={Overview} />
-          <Route path="/donate" component={CheckoutForm} />
+          <Route path="/donate" component={DonateScreen} />
           <Route path="/success" component={DonationSuccess} />
         </Router>
       </Elements>
