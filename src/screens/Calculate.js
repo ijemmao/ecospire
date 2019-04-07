@@ -57,7 +57,7 @@ export default class Calculate extends React.Component {
             <DropdownMenu className="dropdown-container" text="Year" options={year} />
           </div>
         </div>
-        <div className="button-container"> <ButtonSemantic text="See Carbon Footprint" />
+        <div className="buttonsemantic-container"> <ButtonSemantic text="See Carbon Footprint" />
         </div>
       </div>
     );
