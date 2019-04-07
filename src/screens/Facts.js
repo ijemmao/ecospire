@@ -174,12 +174,25 @@ export default class Facts extends React.Component {
 
           const vehiclePromises = [];
 
-          vehiclePromises.push(firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+          firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
             const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
             this.setState({ totalKm });
-          }));
 
-          Promise.all(airportPromises).then((res) => {
+            vehiclePromises.push(axios({
+              method: 'POST',
+              url: 'http://impact.brighterplanet.com/automobiles.json',
+              data: {
+                //insert own data
+              },
+            }));
+          });
+
+          // keep a running total of each item
+          // for every res, add the result from that res to the total
+          // find out TOTAL number of kilos of carbon 
+          // convert $9.52 per tonne (1 kg = 0.001 tonne)
+
+          Promise.all([airportPromises, vehiclePromises]).then((res) => {
             res.forEach((item) => {
               const carbonEmissions = {};
               carbonEmissions.carbon = item.data.decisions.carbon.object.value * 2.205;
