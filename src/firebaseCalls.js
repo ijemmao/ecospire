@@ -103,7 +103,8 @@ export function getTopVehicleDays(callback) {
         }
       });
 
-      const daysProps = Object.entries(daysToMinutes).map(([key, value]) => {
+      const daysProps = Object.entries(daysToMinutes).map(([key, prevValue]) => {
+        const value = prevValue / 60;
         return { key, value };
       }, daysToMinutes);
       daysProps.sort((day1, day2) => { return day2.value - day1.value; });
