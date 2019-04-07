@@ -192,6 +192,8 @@ h1 {
     outline: 0;
     border-radius: 4px;
     background: white;
+}
+
 .chart-container {
   height: 400px;
   width: 400px;
@@ -285,4 +287,20 @@ h1 {
 
 .right {
   right: -20vw;
+}
+
+.success-icon {
+  background-image: url('/src/assets/success.svg');
+  align-self: center
+}
+
+.success-container {
+  display:flex;
+  flex-direction: column;
+  text-align:center;
+}
+
+.success-text {
+  margin-top:165px;
+  font-size:20px;
 }
