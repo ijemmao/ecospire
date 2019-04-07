@@ -1,7 +1,9 @@
 import React from 'react';
 import anime from 'animejs';
+import env from './../../env.json';
 
 const GOOGLE_BUTTON_ID = 'google-login-button';
+const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -42,10 +44,23 @@ export default class Login extends React.Component {
   onSuccess = (googleUser) => {
     // docs: https://developers.google.com/identity/sign-in/web/sign-in#before_you_begin
     this.setState({ profile: googleUser.getBasicProfile() });
-    console.log(this.state.profile);
-    if (this.state.profile) {
-      // window.location = 'http://localhost:8080/facts';
-    }
+
+    window.gapi.load('auth2', () => {
+      window.gapi.auth2.init({
+        // apiKey: API_KEY,
+        client_id: CLIENT_ID,
+        // discoveryDocs: DISCOVERY_DOCS,
+        // scope: SCOPES,
+      }).then(() => {
+        window.gapi.auth2.getAuthInstance().signIn().then(() => {
+          // console.log('fdsafds');
+          window.location = 'http://localhost:8080/facts';
+          console.log(this.state.profile);
+        });
+      });
+    });
+    // if (this.state.profile) {
+    // }
   }
   render() {
     return (
