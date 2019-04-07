@@ -120,6 +120,9 @@ export default class Facts extends React.Component {
       carbonEmissionslbs: null,
       carbonEmissionscost: null,
       minutesInVehicle: 0,
+      dateRange: null, // range to include for flights
+      range: 'week',
+      flightCount: 0,
       // flying: 0,
       // averageComparison: 0,
       // offsetFootprint: 0,
@@ -127,6 +130,7 @@ export default class Facts extends React.Component {
   }
 
   componentWillMount = () => {
+    this.setState({ dateRange: moment().subtract(7, 'd').format('') });
     window.gapi.load('client', () => {
       window.gapi.client.init({
         apiKey: API_KEY,
@@ -134,60 +138,26 @@ export default class Facts extends React.Component {
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES,
       }).then(() => {
-        window.gapi.client.calendar.events.list({
-          calendarId: 'primary',
-          alwaysIncludeEmail: true,
-          q: 'flight',
-        }).then((response) => {
-          const events = response.result.items;
-          const airportPromises = [];
-          events.forEach((flight) => {
-            if (flight.location && flight.summary) {
-              if (flight.location.split(' ').length === 2 && (flight.summary.split(' ').length === 3 || flight.summary.split(' ').length === 5)) {
-                const originCode = flight.location.split(' ')[1];
-                let destinationCode = '';
-                airports.forEach((airport) => {
-                  if (airport.city === flight.summary.split(' ')[2]) {
-                    destinationCode = airport.code;
-                  }
-                });
-
-                airportPromises.push(axios({
-                  method: 'POST',
-                  url: 'http://impact.brighterplanet.com/flights.json',
-                  data: {
-                    origin_airport: originCode,
-                    destination_airport: destinationCode,
-                  },
-                }));
-              }
-            }
+        firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+          const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+          this.setState({
+            totalKm,
+            minutesInVehicle,
+            totalKg: totalKm * (C02_PER_KILOMETER / 1000),
+            range: 'week',
           });
-
-          let vehiclePromise = null;
-
-          firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-            const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-            this.setState({ totalKm, minutesInVehicle });
-
-            vehiclePromise = axios({
-              method: 'POST',
-              url: 'http://impact.brighterplanet.com/automobiles.json',
-              data: {
-                make: 'Honda',
-                model: 'Accord',
-                year: '2012',
-                annual_distance: String(totalKm),
-              },
-            });
-          }).then(() => {
-            // keep running total of kgs from flights and kgs from automobiles YES
-            // keep a running total of each item YES
-            // for every res, add the result from that res to the total YES
-            // find out TOTAL number of kilos of carbon YES
-            // convert $9.52 per tonne (1 kg = 0.001 tonne)
-            this.calculateTotalEmissions(vehiclePromise, airportPromises);
+          this.setState({ dateRange: moment().subtract(7, 'd').hour(0).format() });
+          const vehiclePromise = axios({
+            method: 'POST',
+            url: 'http://impact.brighterplanet.com/automobiles.json',
+            data: {
+              make: 'Honda',
+              model: 'Accord',
+              year: '2012',
+              annual_distance: String(totalKm),
+            },
           });
+          this.calculateFlights(vehiclePromise);
         });
       });
     });
@@ -195,6 +165,48 @@ export default class Facts extends React.Component {
   }
 
   componentDidMount = () => {
+  }
+
+  calculateFlights = (vehiclePromise) => {
+    window.gapi.client.calendar.events.list({
+      calendarId: 'primary',
+      timeMin: this.state.dateRange,
+      alwaysIncludeEmail: true,
+      q: 'flight',
+    }).then((response) => {
+      const events = response.result.items;
+      this.setState({ flightCount: events.length });
+      const airportPromises = [];
+      events.forEach((flight) => {
+        if (flight.location && flight.summary) {
+          if (flight.location.split(' ').length === 2 && (flight.summary.split(' ').length === 3 || flight.summary.split(' ').length === 5)) {
+            const originCode = flight.location.split(' ')[1];
+            let destinationCode = '';
+            airports.forEach((airport) => {
+              if (airport.city === flight.summary.split(' ')[2]) {
+                destinationCode = airport.code;
+              }
+            });
+
+            airportPromises.push(axios({
+              method: 'POST',
+              url: 'http://impact.brighterplanet.com/flights.json',
+              data: {
+                origin_airport: originCode,
+                destination_airport: destinationCode,
+              },
+            }));
+          }
+        }
+      });
+
+      // keep running total of kgs from flights and kgs from automobiles YES
+      // keep a running total of each item YES
+      // for every res, add the result from that res to the total YES
+      // find out TOTAL number of kilos of carbon YES
+      // convert $9.52 per tonne (1 kg = 0.001 tonne)
+      this.calculateTotalEmissions(vehiclePromise, airportPromises);
+    });
   }
 
   calculateTotalEmissions = (vehiclePromise, airportPromises) => {
@@ -276,28 +288,79 @@ export default class Facts extends React.Component {
       case 'month':
         firebaseCalls.getPastMonthVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
-          this.renderCharts();
+          console.log('MONTHS', minutesInVehicle);
+          this.setState({
+            totalKm,
+            minutesInVehicle,
+            totalKg: totalKm * (C02_PER_KILOMETER / 1000),
+            range: 'month',
+          });
+          this.setState({ dateRange: moment().subtract(30, 'd').hour(0).format() });
+          const vehiclePromise = axios({
+            method: 'POST',
+            url: 'http://impact.brighterplanet.com/automobiles.json',
+            data: {
+              make: 'Honda',
+              model: 'Accord',
+              year: '2012',
+              annual_distance: String(totalKm),
+            },
+          });
+          this.calculateFlights(vehiclePromise);
         });
         break;
       case 'year':
         firebaseCalls.getPastYearVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
-          this.renderCharts();
+          this.setState({
+            totalKm,
+            minutesInVehicle,
+            totalKg: totalKm * (C02_PER_KILOMETER / 1000),
+            range: 'year',
+          });
+          this.setState({ dateRange: moment().subtract(365, 'd').format() });
+          const vehiclePromise = axios({
+            method: 'POST',
+            url: 'http://impact.brighterplanet.com/automobiles.json',
+            data: {
+              make: 'Honda',
+              model: 'Accord',
+              year: '2012',
+              annual_distance: String(totalKm),
+            },
+          });
+          this.calculateFlights(vehiclePromise);
         });
         break;
       default:
         firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
-          this.renderCharts();
+          this.setState({
+            totalKm,
+            minutesInVehicle,
+            totalKg: totalKm * (C02_PER_KILOMETER / 1000),
+            range: 'week',
+          });
+          this.setState({ dateRange: moment().subtract(7, 'd').hour(0).format() });
+          const vehiclePromise = axios({
+            method: 'POST',
+            url: 'http://impact.brighterplanet.com/automobiles.json',
+            data: {
+              make: 'Honda',
+              model: 'Accord',
+              year: '2012',
+              annual_distance: String(totalKm),
+            },
+          });
+          this.calculateFlights(vehiclePromise);
         });
     }
   }
 
   convertTime = () => {
-    return moment.utc().startOf('day').add({ minutes: this.state.minutesInVehicle }).format('H [hours] m [minutes]');
+    const carDurationHours = Math.floor(this.state.minutesInVehicle / 60);
+    const carDurationMinutes = Math.floor(this.state.minutesInVehicle - (carDurationHours * 60));
+    return `${carDurationHours} hours ${carDurationMinutes} minutes`;
   }
 
   renderCharts = () => {
@@ -341,6 +404,10 @@ export default class Facts extends React.Component {
         </div>
         <div className="chart-container">
           <canvas id="pie-chart" width="400" height="400" />
+        </div>
+        <div className="flights-container">
+          <h2>In the last {this.state.range} you have taken</h2>
+          <h3>{this.state.flightCount} flights</h3>
         </div>
 
         <div className="side-ferns" />
