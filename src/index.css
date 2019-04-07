@@ -25,11 +25,25 @@ h1 {
 .calculate-container {
   display:flex;
   flex-direction:column;
-  text-align:center
+  text-align:center;
+  margin-top:30px;
+}
+
+.dropdown-wrapper {
+  display:flex;
+  width:100;
+  flex-direction:row;
+  justify-content:center;
+  align-content:center
 }
 
 .dropdown-container {
-  width: 50%;
+  margin-right:20px;
+}
+
+.button-container {
+  width:100;
+  margin-top:20px;
 }
 
 .login-header {
