@@ -36,28 +36,26 @@ const year = [
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Calculate extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="calculate-container">
-        <h2>Please provide us with more details on your carbon usage: </h2>
-        <p> Make and model of your car </p>
-        <div className="dropdown-wrapper">
-          <div className="dropdown-container">
-            <DropdownMenu className="dropdown-container" text="Make" options={make} />
-          </div>
-          <div className="dropdown-container">
-            <DropdownMenu className="dropdown-container" text="Model" options={model} />
-          </div>
-          <div className="dropdown-container">
-            <DropdownMenu className="dropdown-container" text="Year" options={year} />
+        <div>
+          <h2>Please provide us with more details on your carbon usage: </h2>
+          <h3> Make and model of your car </h3>
+          <div className="dropdown-wrapper">
+            <div className="dropdown-container">
+              <DropdownMenu className="dropdown-container" text="Make" options={make} />
+            </div>
+            <div className="dropdown-container">
+              <DropdownMenu className="dropdown-container" text="Model" options={model} />
+            </div>
+            <div className="dropdown-container">
+              <DropdownMenu className="dropdown-container" text="Year" options={year} />
+            </div>
           </div>
         </div>
-        <div className="button-container"> <ButtonSemantic text="See Carbon Footprint" />
+        <div className="button-container">
+          <ButtonSemantic text="See Carbon Footprint" />
         </div>
       </div>
     );

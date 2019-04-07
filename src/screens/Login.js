@@ -47,20 +47,14 @@ export default class Login extends React.Component {
 
     window.gapi.load('auth2', () => {
       window.gapi.auth2.init({
-        // apiKey: API_KEY,
         client_id: CLIENT_ID,
-        // discoveryDocs: DISCOVERY_DOCS,
-        // scope: SCOPES,
       }).then(() => {
         window.gapi.auth2.getAuthInstance().signIn().then(() => {
-          // console.log('fdsafds');
-          window.location = 'http://localhost:8080/facts';
+          window.location = 'http://localhost:8080/calculate';
           console.log(this.state.profile);
         });
       });
     });
-    // if (this.state.profile) {
-    // }
   }
   render() {
     return (

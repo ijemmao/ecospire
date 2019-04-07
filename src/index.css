@@ -38,8 +38,17 @@ h1 {
   margin-bottom: 7vh;
 }
 
+.calculate-container h2 {
+  font-size: 2.8em;
+}
 
-
+.calculate-container h3 {
+  font-size: 1.2em;
+  color: #6e6e6e;
+  font-weight: 200;
+  margin-bottom: 7vh;
+}
+ 
 .facts-container {
   display: flex;
   flex-direction: column;
@@ -48,10 +57,14 @@ h1 {
 }
 
 .calculate-container {
-  display:flex;
+  height: 100vh;
+  display: flex;
   flex-direction:column;
-  text-align:center;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
   margin-top:30px;
+  padding: 10vh 0;
 }
 
 .dropdown-wrapper {
@@ -64,11 +77,6 @@ h1 {
 
 .dropdown-container {
   margin-right:20px;
-}
-
-.button-container {
-  width:100;
-  margin-top:20px;
 }
 
 .login-header {
@@ -92,17 +100,26 @@ h1 {
   width: fit-content;
 }
 
+.calculate-button {
+  border-radius: 50px !important;
+  height: 50px !important;
+  background: #FF839C !important;
+  color: white !important;
+}
+
 .donate-container .button {
   margin-right: 20px;
   align-self: center;
-}
-
-.button {
+  width:100;
+  margin-top:20px;
   height: 40px;
   width: 100px;
   border-radius: 5px;
   background-color: #9d9d9d;
   color: white;
+}
+
+.button {
   border: none;
   cursor: pointer;
   outline: none;
@@ -148,4 +165,12 @@ h1 {
 
 .light {
   font-weight: 200;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 170px;
+  text-align: center;
 }
