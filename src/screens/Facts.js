@@ -6,13 +6,7 @@ import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
-<<<<<<< HEAD
-// eslint-disable-next-line no-unused-vars
-import CheckoutForm from './../components/CheckoutForm';
-=======
-// import CheckoutForm from './../components/CheckoutForm';
 import * as firebaseCalls from '../firebaseCalls';
->>>>>>> 12bb1b203afd330a7daa8cd9647720366ad1c396
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const API_KEY = env.API_KEY;
