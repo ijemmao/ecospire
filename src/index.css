@@ -60,10 +60,11 @@ h1 {
   height: 100vh;
   display: flex;
   flex-direction:column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin-top:30px;
+  background-image: url('/src/assets/calculate-background.svg');
+  background-size: cover;
   padding: 10vh 0;
 }
 
@@ -105,6 +106,8 @@ h1 {
   height: 50px !important;
   background: #FF839C !important;
   color: white !important;
+  position: relative;
+  bottom: 100px;
 }
 
 .donate-container .button {
