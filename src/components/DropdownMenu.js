@@ -10,15 +10,18 @@ export default class DropdownMenu extends React.Component {
       text: this.props.text,
       // eslint-disable-next-line react/no-unused-state
       value: this.props.text,
+      onChange: this.props.onChange,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange(e, { value }) {
     this.setState({
-      text: e.target.value,
+      text: value,
     });
+    this.state.onChange(value);
+    console.log(value);
   }
 
   render() {

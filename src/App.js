@@ -30,8 +30,8 @@ const App = () => {
             </nav>
           </div>
           <Route path="/" exact component={Login} />
-          <Route path="/facts" component={Facts} />
-          <Route path="/calculate" component={Calculate} />
+          <Route path="/facts/:id" component={Facts} />
+          <Route path="/calculate/:id" component={Calculate} />
           <Route path="/overview" component={Overview} />
           <Route path="/donate" component={DonateScreen} />
           <Route path="/success" component={DonationSuccess} />
