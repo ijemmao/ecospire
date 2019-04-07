@@ -124,6 +124,7 @@ export default class Facts extends React.Component {
     this.state = {
       timeframeValue: 'week',
       minutesInVehicle: 0,
+      totalKm: 0,
       // flying: 0,
       // averageComparison: 0,
       // offsetFootprint: 0,
@@ -168,6 +169,16 @@ export default class Facts extends React.Component {
               }
             }
           });
+
+          const vehiclePromises = [];
+          const AVG_US_SPEED_KMM = 1.61;
+
+          vehiclePromises.push(firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+            this.setState({ minutesInVehicle });
+            conost totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+            this.setState({ totalKm });
+          }));
+
           Promise.all(airportPromises).then((res) => {
             res.forEach((item) => {
               const carbonEmissions = {};
@@ -196,10 +207,6 @@ export default class Facts extends React.Component {
       });
     });
     // });
-
-    firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-      this.setState({ minutesInVehicle });
-    });
     this.handleTimeframeChange = this.handleTimeframeChange.bind(this);
   }
 
@@ -250,6 +257,15 @@ export default class Facts extends React.Component {
     return (
       <div className="facts-container">
         <h1>Here are the Facts</h1>
+        <div>
+          Your carbon footprint <Dropdown
+            fluid
+            selection
+            value={this.state.timeframeValue}
+            onChange={this.handleTimeframeChange}
+            options={timeframes}
+          /> is {this.state.minutesInVehicle}
+        </div>
         <div className="chart-container">
           <canvas id="bar-graph" width="400" height="400" />
         </div>
@@ -262,16 +278,6 @@ export default class Facts extends React.Component {
 
         <Fact />
         <Fact type="car" position="right" />
-
-        <div>
-          Your carbon footprint <Dropdown
-            fluid
-            selection
-            value={this.state.timeframeValue}
-            onChange={this.handleTimeframeChange}
-            options={timeframes}
-          /> is {this.state.minutesInVehicle}
-        </div>
 
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />
