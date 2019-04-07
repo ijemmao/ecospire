@@ -469,6 +469,30 @@ a:hover {
   align-self: center;
 }
 
+.time-in-car-container {
+  position: absolute;
+  right: 20vw;
+  top: 40vh;
+  text-align: center;
+  color: rgb(67, 67, 67);
+}
+
+.number-flights-container {
+  position: absolute;
+  left: 20vw;
+  top: 100vh;
+  text-align: center;
+  color: rgb(67, 67, 67);
+}
+
+.time-in-car-container h2, .number-flights-container h2 {
+  font-size: 2em;
+}
+
+.time-in-car-container h3, .number-flights-container h3 {
+  font-size: 2.4em;
+}
+
 .donate-screen-container {
   display: flex;
   flex-direction: column;
