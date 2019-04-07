@@ -23,7 +23,6 @@ export function getUserDetails(userId, callback) {
 
 export function addUserDetails(details) {
   console.log(details);
-  debugger;
   db.collection('user_details').add(details)
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
