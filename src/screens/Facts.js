@@ -15,6 +15,7 @@ const API_KEY = env.API_KEY;
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 const AVG_US_SPEED_KMM = 1.61;
+const C02_PER_KILOMETER = 120;
 
 const barGraphData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -114,6 +115,7 @@ export default class Facts extends React.Component {
     this.state = {
       timeframeValue: 'week',
       totalKm: 0,
+      totalKg: 0, // total CO2 emissions from Annie's data from car rides
       carbonEmissions: null,
       carbonEmissionslbs: null,
       carbonEmissionscost: null,
@@ -258,22 +260,7 @@ export default class Facts extends React.Component {
         carbonEmissionscost: carbonEmissions.totalCarbon * 0.001 * 9.52,
       });
 
-      const bar = document.getElementById('bar-graph');
-      const pie = document.getElementById('pie-chart');
-      new Chart(bar, {
-        type: 'bar',
-        data: barGraphData,
-        options: barGraphOptions,
-      });
-      pieChartData.datasets[0].data = [Math.floor(carbonEmissions.flightCarbon), Math.floor(carbonEmissions.automobilesCarbon)];
-      new Chart(pie, {
-        type: 'pie',
-        data: pieChartData,
-      });
-      firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-        const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-        this.setState({ totalKm });
-      });
+      this.renderCharts();
     });
   }
 
@@ -289,25 +276,47 @@ export default class Facts extends React.Component {
       case 'month':
         firebaseCalls.getPastMonthVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle });
+          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
+          this.renderCharts();
         });
         break;
       case 'year':
         firebaseCalls.getPastYearVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle });
+          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
+          this.renderCharts();
         });
         break;
       default:
         firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
           const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({ totalKm, minutesInVehicle });
+          this.setState({ totalKm, minutesInVehicle, totalKg: totalKm * (C02_PER_KILOMETER / 1000) });
+          this.renderCharts();
         });
     }
   }
 
   convertTime = () => {
     return moment.utc().startOf('day').add({ minutes: this.state.minutesInVehicle }).format('H [hours] m [minutes]');
+  }
+
+  renderCharts = () => {
+    const bar = document.getElementById('bar-graph');
+    const pie = document.getElementById('pie-chart');
+    new Chart(bar, {
+      type: 'bar',
+      data: barGraphData,
+      options: barGraphOptions,
+    });
+    pieChartData.datasets[0].data = [Math.floor(this.state.carbonEmissions.flightCarbon), Math.floor(this.state.totalKg)];
+    new Chart(pie, {
+      type: 'pie',
+      data: pieChartData,
+    });
+    firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+      const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+      this.setState({ totalKm });
+    });
   }
 
   render() {
