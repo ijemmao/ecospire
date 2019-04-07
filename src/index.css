@@ -359,6 +359,7 @@ h1 {
   justify-content: center;
   align-content: center;
   text-align: center;
+  padding: 0 50px;
 }
 
 .fact-container h4 {
@@ -387,6 +388,10 @@ h1 {
 .salad {
   background-image: url('/src/assets/salad.svg');
   left: 260px;
+}
+
+.lightbulb {
+  background-image: url('/src/assets/lightbulb.svg');
 }
 
 .left {
@@ -531,4 +536,20 @@ a:hover {
 
 .success-container .calculate-button {
   margin-top: 20vh;
+}
+
+.carbon-footprint-container {
+  display: flex;
+  width: 40vw;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.carbon-footprint-container * {
+  margin: 0 10px;
+}
+
+.carbon-footprint-container div {
+  width: auto !important;
 }
