@@ -15,7 +15,7 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="checkout-container">
-        <h2>Donate to Plant Trees</h2>
+        <h2>Donate to {this.props.organization}</h2>
         <p className="stripe-label">Amount</p>
         <input
           type="text"

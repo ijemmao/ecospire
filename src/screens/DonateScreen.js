@@ -5,23 +5,40 @@ import Donate from '../components/Donate';
 export default class DonateScreen extends Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
+    this.state = {
+      organization: null,
+      renderCheckoutForm: false,
+    };
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  async submit(ev) {
-    // User clicked submit
+  handleCheckoutForm = (title) => {
+    this.setState({ organization: title, renderCheckoutForm: true });
+  }
+
+  renderCheckout = () => {
+    if (this.state.renderCheckoutForm) {
+      return (
+        <CheckoutForm organization={this.state.organization} />
+      );
+    } return null;
   }
 
   render() {
     return (
       <div className="donate-screen-container">
         <h1>Select an Organization to Donate</h1>
-        <Donate title="Carbon Fund" description="Help fight climate change by going carbon neutral" />
-        <Donate />
-        <Donate />
-        <Donate />
-        <CheckoutForm />
+        <Donate title="Carbon Fund" description="Help fight climate change by going carbon neutral" onClick={() => this.handleCheckoutForm('Carbon Fund')} />
+        <Donate
+          title="Carbon Neutral Charitable Fund"
+          description="We plant trees for our planet. Together let’s reduce our carbon footprint, restore the landscape, and revive biodiversity"
+          onClick={() => this.handleCheckoutForm('Carbon Neutral Charitable Fund')}
+        />
+        <Donate
+          title="Carbon Neutral"
+          description="We help organisations across Australia, and beyond, minimise their impact on the environment by working with them to measure, reduce and offset greenhouse gas emissions."
+          onClick={() => this.handleCheckoutForm('Carbon Neutral')}
+        />
+        {this.renderCheckout()}
       </div>
     );
   }

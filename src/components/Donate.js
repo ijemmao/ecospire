@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './../components/Button';
+import ButtonSemantic from './ButtonSemantic';
 
 export default class Donate extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class Donate extends React.Component {
   render() {
     return (
       <div className="donate-container">
-        <Button label="Donate" />
+        <ButtonSemantic text="Donate" onClick={this.props.onClick} />
         <div className="organization-information">
           <h2>{this.state.name}</h2>
           <p>{this.state.description}</p>
