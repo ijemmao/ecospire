@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
@@ -127,6 +128,9 @@ export default class Facts extends React.Component {
     this.state = {
       timeframeValue: 'week',
       totalKm: 0,
+      carbonEmissions: null,
+      carbonEmissionslbs: null,
+      carbonEmissionscost: null,
       // flying: 0,
       // averageComparison: 0,
       // offsetFootprint: 0,
@@ -172,48 +176,95 @@ export default class Facts extends React.Component {
             }
           });
 
-          const vehiclePromises = [];
+          let vehiclePromise = null;
 
           firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
             const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
             this.setState({ totalKm });
 
-            vehiclePromises.push(axios({
+            vehiclePromise = axios({
               method: 'POST',
               url: 'http://impact.brighterplanet.com/automobiles.json',
               data: {
-                //insert own data
+                make: 'Honda',
+                model: 'Accord',
+                year: '2012',
+                annual_distance: String(totalKm),
               },
-            }));
-          });
+            });
+          }).then(() => {
+            // keep running total of kgs from flights and kgs from automobiles YES
+            // keep a running total of each item YES
+            // for every res, add the result from that res to the total YES
+            // find out TOTAL number of kilos of carbon YES
+            // convert $9.52 per tonne (1 kg = 0.001 tonne)
 
-          // keep a running total of each item
-          // for every res, add the result from that res to the total
-          // find out TOTAL number of kilos of carbon 
-          // convert $9.52 per tonne (1 kg = 0.001 tonne)
+            const carbonEmissions = {};
 
-          Promise.all([airportPromises, vehiclePromises]).then((res) => {
-            res.forEach((item) => {
-              const carbonEmissions = {};
-              carbonEmissions.carbon = item.data.decisions.carbon.object.value * 2.205;
-              carbonEmissions.equivalents = {
-                days_of_veganism: item.data.equivalents.days_of_veganism,
-                weeks_of_veganism: item.data.equivalents.weeks_of_veganism,
-                months_of_veganism: item.data.equivalents.months_of_veganism,
-                years_of_veganism: item.data.equivalents.years_of_veganism,
-                lightbulbs_for_a_year: item.data.equivalents.lightbulbs_for_a_year,
-                lightbulbs_for_a_month: item.data.equivalents.lightbulbs_for_a_month,
-                lightbulbs_for_a_week: item.data.equivalents.lightbulbs_for_a_week,
-                lightbulbs_for_an_evening: item.data.equivalents.lightbulbs_for_an_evening,
-                homes_electricity_in_a_year: item.data.equivalents.homes_electricity_in_a_year,
-                homes_electricity_in_a_month: item.data.equivalents.homes_electricity_in_a_month,
-                homes_electricity_in_a_week: item.data.equivalents.homes_electricity_in_a_week,
-                homes_electricity_in_a_day: item.data.equivalents.homes_electricity_in_a_day,
-                homes_with_lowered_thermostat_2_degrees_for_a_winter: item.data.equivalents.homes_with_lowered_thermostat_2_degrees_for_a_winter,
-                homes_with_raised_thermostat_3_degrees_for_a_summer: item.data.equivalents.homes_with_raised_thermostat_3_degrees_for_a_summer,
+            carbonEmissions.totalCarbon = 0; // initialize to 0 so we can keep a running total
+            carbonEmissions.automobilesCarbon = 0;
+            carbonEmissions.flightCarbon = 0;
 
-              };
-              console.log(carbonEmissions);
+            carbonEmissions.equivalents = { // initialize all the equivalents so we can keep a running total
+              days_of_veganism: 0,
+              weeks_of_veganism: 0,
+              months_of_veganism: 0,
+              years_of_veganism: 0,
+              lightbulbs_for_a_year: 0,
+              lightbulbs_for_a_month: 0,
+              lightbulbs_for_a_week: 0,
+              lightbulbs_for_an_evening: 0,
+              homes_electricity_in_a_year: 0,
+              homes_electricity_in_a_month: 0,
+              homes_electricity_in_a_week: 0,
+              homes_electricity_in_a_day: 0,
+              homes_with_lowered_thermostat_2_degrees_for_a_winter: 0,
+              homes_with_raised_thermostat_3_degrees_for_a_summer: 0,
+            };
+
+            const masterPromises = airportPromises.concat([vehiclePromise]);
+
+            Promise.all(masterPromises).then((res) => {
+              res.forEach((item) => {
+                carbonEmissions.totalCarbon += item.data.decisions.carbon.object.value; // adding to running total of carbon emissions from planes + cars in kg
+
+                switch (item.data.emitter) {
+                  case 'Automobile':
+                    carbonEmissions.automobilesCarbon += item.data.decisions.carbon.object.value; // adding to running total of appropriate mode of transportation in kg
+                    break;
+                  default:
+                    carbonEmissions.flightCarbon += item.data.decisions.carbon.object.value; // adding to running total of appropriate mode of transportation in kg
+                }
+
+                // keeping a running total of all of these equivalents
+
+                carbonEmissions.equivalents.days_of_veganism += item.data.equivalents.days_of_veganism ? item.data.equivalents.days_of_veganism : 0;
+                carbonEmissions.equivalents.weeks_of_veganism += item.data.equivalents.weeks_of_veganism;
+                carbonEmissions.equivalents.months_of_veganism += item.data.equivalents.months_of_veganism;
+                carbonEmissions.equivalents.years_of_veganism += item.data.equivalents.years_of_veganism;
+                carbonEmissions.equivalents.lightbulbs_for_a_year += item.data.equivalents.lightbulbs_for_a_year;
+                carbonEmissions.equivalents.lightbulbs_for_a_month += item.data.equivalents.lightbulbs_for_a_month;
+                carbonEmissions.equivalents.lightbulbs_for_a_week += item.data.equivalents.lightbulbs_for_a_week;
+                carbonEmissions.equivalents.lightbulbs_for_an_evening += item.data.equivalents.lightbulbs_for_an_evening;
+                carbonEmissions.equivalents.homes_electricity_in_a_year += item.data.equivalents.homes_electricity_in_a_year;
+                carbonEmissions.equivalents.homes_electricity_in_a_month += item.data.equivalents.homes_electricity_in_a_month;
+                carbonEmissions.equivalents.homes_electricity_in_a_week += item.data.equivalents.homes_electricity_in_a_week;
+                carbonEmissions.equivalents.homes_electricity_in_a_day += item.data.equivalents.homes_electricity_in_a_day;
+                carbonEmissions.equivalents.homes_with_lowered_thermostat_2_degrees_for_a_winter += item.data.equivalents.homes_with_lowered_thermostat_2_degrees_for_a_winter;
+                carbonEmissions.equivalents.homes_with_raised_thermostat_3_degrees_for_a_summer += item.data.equivalents.homes_with_raised_thermostat_3_degrees_for_a_summer;
+              });
+              console.log('here is totalCarbon INSIDE of promise loop');
+              console.log(carbonEmissions.totalCarbon);
+            });
+            console.log('Outside of Promise Loop Carbon Emissions is: ');
+            console.log(carbonEmissions);
+            console.log('Outside of Promise Loop totalCarbon Emissions is: ');
+            console.log(carbonEmissions.totalCarbon);
+            this.setState({
+            // eslint-disable-next-line react/no-unused-state
+              carbonEmissions,
+              carbonEmissionslbs: carbonEmissions.totalCarbon * 2.205,
+              carbonEmissionscost: carbonEmissions.totalCarbon * 0.001 * 9.52,
             });
           });
         });
@@ -301,6 +352,9 @@ export default class Facts extends React.Component {
         <Donate />
         <Donate />
         <Donate />
+        {/* <div> {this.state.carbonEmissions} </div> */}
+        <div> {this.state.carbonEmissionscost} </div>
+        <div> {this.state.carbonEmissionslbs} </div>
       </div>
     );
   }
