@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
 import Donate from './../components/Donate';
+import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
 
@@ -208,6 +209,9 @@ export default class Facts extends React.Component {
 
         <div className="side-ferns" />
         <div className="side-plants" />
+
+        <Fact />
+        <Fact type="car" position="right" />
 
         <h2>How to Offset your Carbon Footprint:</h2>
         <Donate />
