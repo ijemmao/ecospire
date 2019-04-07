@@ -13,12 +13,32 @@ h1 {
 
 .login-container {
   display: flex;
-  height: 70vh;
+  height: 100vh;
+  width: 100vw;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
+  background-image: url('/src/assets/landing.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0px 50px;
 }
+
+.login-container h1 {
+  font-size: 6.5em;
+  margin-top: 20vh;
+  color: rgb(46, 46, 46);
+}
+
+.login-container h3 {
+  font-size: 1.2em;
+  color: #6e6e6e;
+  font-weight: 200;
+  margin-top: -3vh;
+  margin-bottom: 7vh;
+}
+
+
 
 .facts-container {
   display: flex;
@@ -72,4 +92,8 @@ h1 {
   border: none;
   cursor: pointer;
   outline: none;
+}
+
+.light {
+  font-weight: 200;
 }

@@ -30,7 +30,7 @@ export default class Login extends React.Component {
     });
 
     anime({
-      targets: '.login-header',
+      targets: '.login-header .login-subheader',
       translateY: -100,
       opacity: [0, 1],
       easing: 'spring(1, 80, 10, 0)',
@@ -44,13 +44,14 @@ export default class Login extends React.Component {
     this.setState({ profile: googleUser.getBasicProfile() });
     console.log(this.state.profile);
     if (this.state.profile) {
-      window.location = 'http://localhost:8080/facts';
+      // window.location = 'http://localhost:8080/facts';
     }
   }
   render() {
     return (
       <div className="login-container">
-        <h1 className="login-header">Access your ecospire information!</h1>
+        <h1 className="login-header">eco<span className="light">spire</span></h1>
+        <h3 className="login-subheader">See how you can go carbon-neutral</h3>
         <div id={GOOGLE_BUTTON_ID} />
       </div>
     );
