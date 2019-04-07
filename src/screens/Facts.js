@@ -2,12 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
 import { Dropdown } from 'semantic-ui-react';
-import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
-// eslint-disable-next-line no-unused-vars
-import CheckoutForm from './../components/CheckoutForm';
 import * as firebaseCalls from '../firebaseCalls';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
@@ -68,11 +65,6 @@ const pieChartData = {
 
 const barGraphOptions = {
   scales: {
-    // yAxes: [{
-    //   ticks: {
-    //     beginAtZero: true,
-    //   },
-    // }],
     xAxes: [{
       gridLines: {
         display: false,
@@ -282,12 +274,6 @@ export default class Facts extends React.Component {
 
         <Fact />
         <Fact type="car" position="right" />
-
-        <h2>How to Offset your Carbon Footprint:</h2>
-        <Donate />
-        <Donate />
-        <Donate />
-        <Donate />
       </div>
     );
   }
