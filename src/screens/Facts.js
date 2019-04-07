@@ -145,7 +145,7 @@ export default class Facts extends React.Component {
           this.setState({
             totalKm,
             minutesInVehicle,
-            totalKg: totalKm * (C02_PER_KILOMETER / 1000),
+            totalKg: (totalKm * C02_PER_KILOMETER) / 1000,
             range: 'week',
           });
           this.setState({ dateRange: moment().subtract(7, 'd').hour(0).format() });
@@ -278,6 +278,8 @@ export default class Facts extends React.Component {
 
       facts = [
         `Only ${this.state.flightCount} flights makes up for ${Math.floor(carbonEmissions.flightCarbon / (carbonEmissions.totalCarbon / 100))}% of your CO2 emissions!`,
+        'Cutting your driving by 30% in one month is equivalent to turning off electricity for 20 days.',
+        `It would take ${Math.round(carbonEmissions.equivalents.years_of_veganism)} years of being vegan to produce the same amount of C02 from your flights and car rides!`,
       ];
     });
   }
@@ -370,14 +372,25 @@ export default class Facts extends React.Component {
   }
 
   renderCharts = () => {
-    const bar = document.getElementById('bar-graph');
-    const pie = document.getElementById('pie-chart');
+    const firstContainer = document.getElementsByClassName('chart-container')[0];
+    const secondContainer = document.getElementsByClassName('chart-container')[1];
+    document.getElementsByTagName('canvas')[0].remove();
+    const bar = document.createElement('canvas');
+    bar.id = 'bar-graph';
+    bar.height = '400';
+    bar.width = '400';
+    const pie = document.createElement('canvas');
+    pie.id = 'pie-chart';
+    pie.height = '400';
+    pie.width = '400';
+    firstContainer.appendChild(bar);
+    secondContainer.appendChild(pie);
     new Chart(bar, {
       type: 'bar',
       data: barGraphData,
       options: barGraphOptions,
     });
-    pieChartData.datasets[0].data = [Math.floor(this.state.carbonEmissions.flightCarbon), Math.floor(this.state.totalKg)];
+    pieChartData.datasets[0].data = [Math.floor(this.state.carbonEmissions.flightCarbon), Math.floor(this.state.carbonEmissions.automobilesCarbon)];
     new Chart(pie, {
       type: 'pie',
       data: pieChartData,
@@ -427,8 +440,8 @@ export default class Facts extends React.Component {
         <div className="trees" />
 
         <Fact text={facts[0]} />
-        <Fact type="car" position="right" />
-        <Fact type="salad" />
+        <Fact text={facts[1]} type="car" position="right" />
+        <Fact text={facts[2]} type="salad" />
 
         <ButtonSemantic text="Reduce Your Carbon Footprint" onClick={() => { window.location = 'http://localhost:8080/donate'; }} />
       </div>
