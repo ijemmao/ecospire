@@ -21,7 +21,7 @@ const App = () => {
                   <Link to="/overview/" href="/overview">Overview</Link>
                 </li>
                 <li>
-                  <Link to="/facts/112849541096408018577" href="/facts/112849541096408018577">Facts</Link>
+                  <Link to="/facts/" href="/facts/">Facts</Link>
                 </li>
                 <li>
                   <Link to="/donate/" href="/donate">Donate</Link>
@@ -30,7 +30,7 @@ const App = () => {
             </nav>
           </div>
           <Route path="/" exact component={Login} />
-          <Route path="/facts/:id" component={Facts} />
+          <Route path="/facts/" component={Facts} />
           <Route path="/calculate/:id" component={Calculate} />
           <Route path="/overview" component={Overview} />
           <Route path="/donate" component={DonateScreen} />
