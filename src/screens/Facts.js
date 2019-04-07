@@ -125,6 +125,8 @@ export default class Facts extends React.Component {
       dateRange: null, // range to include for flights
       range: 'week',
       flightCount: 0,
+      topVehicleDays: [],
+      topVehicleMinutes: [],
       // flying: 0,
       // averageComparison: 0,
       // offsetFootprint: 0,
@@ -160,6 +162,16 @@ export default class Facts extends React.Component {
             },
           });
           this.calculateFlights(vehiclePromise);
+        });
+        firebaseCalls.getTopVehicleDays((res) => {
+          res.forEach((entry) => {
+            this.setState(prevState => ({
+              topVehicleDays: [...prevState.topVehicleDays, entry.key],
+              topVehicleMinutes: [...prevState.topVehicleMinutes, entry.value],
+            }));
+          });
+          console.log(this.state.topVehicleDays);
+          console.log(this.state.topVehicleMinutes);
         });
       });
     });
