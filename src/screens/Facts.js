@@ -16,20 +16,45 @@ const barGraphData = {
     label: '# of Votes',
     data: [12, 19, 3, 5, 2, 3],
     backgroundColor: [
-      'rgb(255, 131, 156, 0.2)',
-      'rgb(255, 131, 156, 0.2)',
-      'rgb(255, 131, 156, 0.2)',
-      'rgb(255, 131, 156, 0.2)',
-      'rgb(255, 131, 156, 0.2)',
-      'rgb(255, 131, 156, 0.2)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
+      'rgba(255, 164, 89, 1)',
     ],
     borderColor: [
-      'rgba(255, 99, 132, 1)',
-      'rgba(255, 99, 132, 1)',
-      'rgba(255, 99, 132, 1)',
-      'rgba(255, 99, 132, 1)',
-      'rgba(255, 99, 132, 1)',
-      'rgba(255, 99, 132, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+      'rgba(255, 146, 55, 1)',
+    ],
+    borderWidth: 1,
+  }],
+};
+
+const pieChartData = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [{
+    label: '# of Votes',
+    data: [12, 19, 3, 5, 2, 3],
+    backgroundColor: [
+      'rgba(112, 243, 253, 1)',
+      'rgba(112, 243, 253, 1)',
+      'rgba(112, 243, 253, 1)',
+      'rgba(138, 93, 226, 1)',
+      'rgba(138, 93, 226, 1)',
+      'rgba(138, 93, 226, 1)',
+    ],
+    borderColor: [
+      'rgba(10, 218, 255, 1)',
+      'rgba(10, 218, 255, 1)',
+      'rgba(10, 218, 255, 1)',
+      'rgba(221, 86, 240, 1)',
+      'rgba(221, 86, 240, 1)',
+      'rgba(221, 86, 240, 1)',
     ],
     borderWidth: 1,
   }],
@@ -37,9 +62,37 @@ const barGraphData = {
 
 const barGraphOptions = {
   scales: {
-    yAxes: [{
+    // yAxes: [{
+    //   ticks: {
+    //     beginAtZero: true,
+    //   },
+    // }],
+    xAxes: [{
+      gridLines: {
+        display: false,
+      },
+    }, {
+      position: 'top',
       ticks: {
-        beginAtZero: true,
+        display: false,
+      },
+      gridLines: {
+        display: false,
+        drawTicks: false,
+      },
+    }],
+    yAxes: [{
+      gridLines: {
+        display: false,
+      },
+    }, {
+      position: 'right',
+      ticks: {
+        display: false,
+      },
+      gridLines: {
+        display: false,
+        drawTicks: false,
       },
     }],
   },
@@ -134,8 +187,7 @@ export default class Facts extends React.Component {
     });
     new Chart(pie, {
       type: 'pie',
-      data: barGraphData,
-      options: barGraphOptions,
+      data: pieChartData,
     });
   }
 
