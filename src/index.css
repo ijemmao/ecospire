@@ -291,3 +291,59 @@ h1 {
 .right {
   right: -20vw;
 }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 50px;
+}
+
+nav h1 {
+  font-size: 3em;
+  user-select: none;
+}
+
+nav ul {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
+li {
+  list-style-type: none;
+  margin-right: 20px;
+  font-size: 1.4em;
+}
+a {
+  color: #6243f9;
+}
+
+a:hover {
+  color: #493996;
+}
+
+.overview-container {
+  height: 87vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.overview-container h2 {
+  text-align: center;
+}
+
+.overview-avatar {
+  height: 500px;
+  width: 500px;
+  background-image: url('/src/assets/plant.svg');
+  background-size: cover;
+  align-self: center;
+  margin-top: -120px;
+}
+
+.overview-container .calculate-button {
+  align-self: center;
+}
