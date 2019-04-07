@@ -82,3 +82,33 @@ export function getPastYearVehicleStats(callback) {
       console.log(`total minutes last year: ${totalTime}`);
     });
 }
+
+export function getTopVehicleDays(callback) {
+  const aYearAgo = new Date();
+  aYearAgo.setDate(aYearAgo.getDate() - 125);
+  return db.collection('annie_location_history')
+    .where('activityType', '==', 'in vehicle')
+    .where('date', '>=', aYearAgo)
+    .get()
+    .then((snapshot) => {
+      const daysToMinutes = {};
+
+      snapshot.forEach((entry) => {
+        const dateStr = entry.data().date.toDate().toISOString().substring(0, 10);
+        const minutes = entry.data().minuteDifference;
+        if (dateStr in daysToMinutes) {
+          daysToMinutes[dateStr] += minutes;
+        } else {
+          daysToMinutes[dateStr] = minutes;
+        }
+      });
+
+      const daysProps = Object.entries(daysToMinutes).map(([key, value]) => {
+        return { key, value };
+      }, daysToMinutes);
+      daysProps.sort((day1, day2) => { return day2.value - day1.value; });
+
+      const top10Days = daysProps.slice(0, 10);
+      callback(top10Days);
+    });
+}
