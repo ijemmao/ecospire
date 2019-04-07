@@ -255,16 +255,17 @@ export default class Facts extends React.Component {
               });
               console.log('here is totalCarbon INSIDE of promise loop');
               console.log(carbonEmissions.totalCarbon);
-            });
-            console.log('Outside of Promise Loop Carbon Emissions is: ');
-            console.log(carbonEmissions);
-            console.log('Outside of Promise Loop totalCarbon Emissions is: ');
-            console.log(carbonEmissions.totalCarbon);
-            this.setState({
-            // eslint-disable-next-line react/no-unused-state
-              carbonEmissions,
-              carbonEmissionslbs: carbonEmissions.totalCarbon * 2.205,
-              carbonEmissionscost: carbonEmissions.totalCarbon * 0.001 * 9.52,
+
+              console.log('Inside of Promise Loop Carbon Emissions is: ');
+              console.log(carbonEmissions);
+              console.log('Inside of Promise Loop totalCarbon Emissions is: ');
+              console.log(carbonEmissions.totalCarbon);
+              this.setState({
+                // eslint-disable-next-line react/no-unused-state
+                carbonEmissions,
+                carbonEmissionslbs: carbonEmissions.totalCarbon * 2.205,
+                carbonEmissionscost: carbonEmissions.totalCarbon * 0.001 * 9.52,
+              });
             });
           });
         });
