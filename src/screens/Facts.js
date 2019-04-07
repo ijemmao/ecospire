@@ -6,7 +6,7 @@ import Donate from './../components/Donate';
 import Fact from './../components/Fact';
 import airports from './../data/airports.json';
 import env from './../../env.json';
-import CheckoutForm from './../components/CheckoutForm';
+// import CheckoutForm from './../components/CheckoutForm';
 import * as firebaseCalls from '../firebaseCalls';
 
 const CLIENT_ID = env.GOOGLE_CLIENT_ID;
