@@ -372,10 +372,18 @@ a:hover {
   color: rgb(67, 67, 67);
 }
 
-.time-in-car-container h2 {
+.number-flights-container {
+  position: absolute;
+  left: 20vw;
+  top: 100vh;
+  text-align: center;
+  color: rgb(67, 67, 67);
+}
+
+.time-in-car-container h2, .number-flights-container h2 {
   font-size: 2em;
 }
 
-.time-in-car-container h3 {
+.time-in-car-container h3, .number-flights-container h3 {
   font-size: 2.4em;
 }

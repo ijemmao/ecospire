@@ -405,7 +405,7 @@ export default class Facts extends React.Component {
         <div className="chart-container">
           <canvas id="pie-chart" width="400" height="400" />
         </div>
-        <div className="flights-container">
+        <div className="number-flights-container">
           <h2>In the last {this.state.range} you have taken</h2>
           <h3>{this.state.flightCount} flights</h3>
         </div>
