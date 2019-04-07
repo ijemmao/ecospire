@@ -277,7 +277,7 @@ export default class Facts extends React.Component {
       this.renderCharts();
 
       facts = [
-        `Only ${this.state.flightCount} flights makes up for ${Math.floor(carbonEmissions.flightCarbon / (carbonEmissions.totalCarbon * 100))}% of your CO2 emissions!`,
+        `Only ${this.state.flightCount} flights makes up for ${Math.floor(carbonEmissions.flightCarbon / (carbonEmissions.totalCarbon / 100))}% of your CO2 emissions!`,
       ];
     });
   }
