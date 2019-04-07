@@ -103,6 +103,19 @@ h1 {
   justify-content: center;
   align-content: center;
   margin-bottom: 7vh;
+  margin-top: 3vh;
+}
+
+.donate-container h2 {
+  font-size: 2.5em;
+}
+
+.donate-container p {
+  font-size: 1.5em;
+}
+
+.organization-information {
+  width: 40vw;
 }
 
 .button-container {
@@ -122,7 +135,6 @@ h1 {
 .donate-container .button {
   margin-right: 20px;
   align-self: center;
-  width:100;
   margin-top:20px;
   height: 40px;
   width: 100px;
@@ -140,9 +152,9 @@ h1 {
 .checkout-container {
   font-size: 18px;
   margin-top: 40px;
-  margin-left: 450px;
   margin-bottom: 40px;
   padding-bottom: 40px;
+  width: 600px;
 }
 
 .stripe-label {
@@ -362,4 +374,16 @@ a:hover {
 
 .overview-container .calculate-button {
   align-self: center;
+}
+
+.donate-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.donate-screen-container .calculate-button {
+  bottom: 0px;
+  width: 150px;
 }

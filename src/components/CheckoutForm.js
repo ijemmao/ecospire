@@ -14,10 +14,16 @@ class CheckoutForm extends Component {
 
   render() {
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Send</button>
+      <div className="checkout-container">
+        <h2>Donate to {this.props.organization}</h2>
+        <p className="stripe-label">Amount</p>
+        <input
+          type="text"
+          className="stripe-element-container"
+        />
+        <p className="stripe-label">Card Details</p>
+        <CardElement className="stripe-element-container" />
+        <button className="stripe-button" onClick={this.submit}>Donate</button>
       </div>
     );
   }
