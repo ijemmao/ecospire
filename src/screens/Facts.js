@@ -142,36 +142,38 @@ export default class Facts extends React.Component {
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES,
       }).then(() => {
-        firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-          const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-          this.setState({
-            totalKm,
-            minutesInVehicle,
-            totalKg: (totalKm * C02_PER_KILOMETER) / 1000,
-            range: 'week',
+        window.gapi.auth2.getAuthInstance().signIn().then(() => {
+          firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+            const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+            this.setState({
+              totalKm,
+              minutesInVehicle,
+              totalKg: (totalKm * C02_PER_KILOMETER) / 1000,
+              range: 'week',
+            });
+            this.setState({ dateRange: moment().subtract(7, 'd').hour(0).format() });
+            const vehiclePromise = axios({
+              method: 'POST',
+              url: 'http://impact.brighterplanet.com/automobiles.json',
+              data: {
+                make: 'Honda',
+                model: 'Accord',
+                year: '2012',
+                annual_distance: String(totalKm),
+              },
+            });
+            this.calculateFlights(vehiclePromise);
           });
-          this.setState({ dateRange: moment().subtract(7, 'd').hour(0).format() });
-          const vehiclePromise = axios({
-            method: 'POST',
-            url: 'http://impact.brighterplanet.com/automobiles.json',
-            data: {
-              make: 'Honda',
-              model: 'Accord',
-              year: '2012',
-              annual_distance: String(totalKm),
-            },
+          firebaseCalls.getTopVehicleDays((res) => {
+            res.forEach((entry) => {
+              this.setState(prevState => ({
+                topVehicleDays: [...prevState.topVehicleDays, entry.key],
+                topVehicleMinutes: [...prevState.topVehicleMinutes, entry.value],
+              }));
+            });
+            console.log(this.state.topVehicleDays);
+            console.log(this.state.topVehicleMinutes);
           });
-          this.calculateFlights(vehiclePromise);
-        });
-        firebaseCalls.getTopVehicleDays((res) => {
-          res.forEach((entry) => {
-            this.setState(prevState => ({
-              topVehicleDays: [...prevState.topVehicleDays, entry.key],
-              topVehicleMinutes: [...prevState.topVehicleMinutes, entry.value],
-            }));
-          });
-          console.log(this.state.topVehicleDays);
-          console.log(this.state.topVehicleMinutes);
         });
       });
     });
