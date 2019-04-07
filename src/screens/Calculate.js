@@ -47,12 +47,10 @@ export default class Calculate extends React.Component {
       make: 'Honda',
       model: 'Accord',
       year: '2012',
-      userId: props.match.params.id,
     };
   }
 
   render() {
-    const { userId } = this.state;
     return (
       <div className="calculate-container">
         <div>
@@ -85,7 +83,7 @@ export default class Calculate extends React.Component {
         <div className="buttonsemantic-container"> <ButtonSemantic
           onClick={() => {
             addUserDetails(this.state);
-            window.location = `${ROOT_URL}/facts/${userId}`;
+            window.location = `${ROOT_URL}/facts/`;
           }}
           text="See Carbon Footprint"
         />
