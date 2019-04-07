@@ -42,24 +42,16 @@ const barGraphData = {
 };
 
 const pieChartData = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  labels: ['Plane Flights', 'Car Rides'],
   datasets: [{
-    label: '# of Votes',
-    data: [12, 19, 3, 5, 2, 3],
+    label: 'CO2 Emissions',
+    data: [],
     backgroundColor: [
       'rgba(112, 243, 253, 1)',
-      'rgba(112, 243, 253, 1)',
-      'rgba(112, 243, 253, 1)',
-      'rgba(138, 93, 226, 1)',
-      'rgba(138, 93, 226, 1)',
       'rgba(138, 93, 226, 1)',
     ],
     borderColor: [
       'rgba(10, 218, 255, 1)',
-      'rgba(10, 218, 255, 1)',
-      'rgba(10, 218, 255, 1)',
-      'rgba(221, 86, 240, 1)',
-      'rgba(221, 86, 240, 1)',
       'rgba(221, 86, 240, 1)',
     ],
     borderWidth: 1,
@@ -201,21 +193,6 @@ export default class Facts extends React.Component {
   }
 
   componentDidMount = () => {
-    const bar = document.getElementById('bar-graph');
-    const pie = document.getElementById('pie-chart');
-    new Chart(bar, {
-      type: 'bar',
-      data: barGraphData,
-      options: barGraphOptions,
-    });
-    new Chart(pie, {
-      type: 'pie',
-      data: pieChartData,
-    });
-    firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
-      const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
-      this.setState({ totalKm });
-    });
   }
 
   calculateTotalEmissions = (vehiclePromise, airportPromises) => {
@@ -279,6 +256,23 @@ export default class Facts extends React.Component {
         carbonEmissions,
         carbonEmissionslbs: carbonEmissions.totalCarbon * 2.205,
         carbonEmissionscost: carbonEmissions.totalCarbon * 0.001 * 9.52,
+      });
+
+      const bar = document.getElementById('bar-graph');
+      const pie = document.getElementById('pie-chart');
+      new Chart(bar, {
+        type: 'bar',
+        data: barGraphData,
+        options: barGraphOptions,
+      });
+      pieChartData.datasets[0].data = [Math.floor(carbonEmissions.flightCarbon), Math.floor(carbonEmissions.automobilesCarbon)];
+      new Chart(pie, {
+        type: 'pie',
+        data: pieChartData,
+      });
+      firebaseCalls.getPastWeekVehicleStats((minutesInVehicle) => {
+        const totalKm = minutesInVehicle * AVG_US_SPEED_KMM;
+        this.setState({ totalKm });
       });
     });
   }
