@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './../components/Button';
 
 export default class Donate extends React.Component {
   constructor(props) {
@@ -12,8 +13,11 @@ export default class Donate extends React.Component {
   render() {
     return (
       <div className="donate-container">
-        <h2>{this.state.name}</h2>
-        <p>{this.state.description}</p>
+        <Button label="Donate" />
+        <div>
+          <h2>{this.state.name}</h2>
+          <p>{this.state.description}</p>
+        </div>
       </div>
     );
   }

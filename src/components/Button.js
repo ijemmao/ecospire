@@ -6,8 +6,8 @@ export default class Button extends React.Component {
   }
   render() {
     return (
-      <div>
-        <button onClick={this.callback}>{this.props.text}</button>
+      <div className="button-container">
+        <button className="button" onClick={this.callback}>{this.props.label}</button>
       </div>
     );
   }
