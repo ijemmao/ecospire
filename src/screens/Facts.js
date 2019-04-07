@@ -17,6 +17,8 @@ const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 const AVG_US_SPEED_KMM = 1.61;
 const C02_PER_KILOMETER = 120;
 
+let facts = [];
+
 const barGraphData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [{
@@ -273,6 +275,10 @@ export default class Facts extends React.Component {
       });
 
       this.renderCharts();
+
+      facts = [
+        `Only ${this.state.flightCount} flights makes up for ${Math.floor(carbonEmissions.flightCarbon / (carbonEmissions.totalCarbon * 100))}% of your CO2 emissions!`,
+      ];
     });
   }
 
@@ -420,7 +426,7 @@ export default class Facts extends React.Component {
         <div className="right-green" />
         <div className="trees" />
 
-        <Fact />
+        <Fact text={facts[0]} />
         <Fact type="car" position="right" />
         <Fact type="salad" />
 

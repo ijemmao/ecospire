@@ -18,7 +18,7 @@ export default class Fact extends React.Component {
   render() {
     return (
       <div className={`fact-container ${this.props.position === 'right' ? 'right' : 'left'}`}>
-        <h4>This is some fun fact about your carbon emission</h4>
+        <h4>{this.props.text || 'This is some fun fact about your carbon emission'}</h4>
         {this.state.icon}
       </div>
     );
