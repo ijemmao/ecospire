@@ -22,7 +22,7 @@ let facts = [];
 const barGraphData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [{
-    label: '# of Votes',
+    label: 'Longest Time Spent in Vehicles',
     data: [12, 19, 3, 5, 2, 3],
     backgroundColor: [
       'rgba(255, 164, 89, 1)',
@@ -401,6 +401,8 @@ export default class Facts extends React.Component {
     pie.width = '400';
     firstContainer.appendChild(bar);
     secondContainer.appendChild(pie);
+    barGraphData.labels = this.state.topVehicleDays;
+    barGraphData.datasets[0].data = this.state.topVehicleMinutes;
     new Chart(bar, {
       type: 'bar',
       data: barGraphData,
