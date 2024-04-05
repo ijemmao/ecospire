@@ -3,33 +3,33 @@ import { Dropdown, Menu } from 'semantic-ui-react';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class DropdownMenu extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: this.props.text,
-      // eslint-disable-next-line react/no-unused-state
-      value: this.props.text,
-      onChange: this.props.onChange,
-    };
+// eslint-disable-next-line no-useless-constructor
+constructor(props) {
+  super(props);
+  this.state = {
+    text: this.props.text,
+    // eslint-disable-next-line react/no-unused-state
+    value: this.props.text,
+    onChange: this.props.onChange,
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+  this.handleChange = this.handleChange.bind(this);
+}
 
-  handleChange(e, { value }) {
-    this.setState({
-      text: value,
-    });
-    this.state.onChange(value);
-    console.log(value);
-  }
+handleChange(e, { value }) {
+  this.setState({
+    text: value,
+  });
+  this.state.onChange(value);
+  console.log(value);
+}
 
-  render() {
-    return (
-      <Menu compact className="dropdown-container">
-        <Dropdown text={this.state.text} onChange={this.handleChange} options={this.props.options} simple item />
-      </Menu>
-    );
-  }
+render() {
+  return (
+    <Menu compact className="dropdown-container">
+      <Dropdown text={this.state.text} onChange={this.handleChange} options={this.props.options} simple item />
+    </Menu>
+  );
+}
 }
 
