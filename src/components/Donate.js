@@ -1,5 +1,5 @@
-import React from 'react';
-import ButtonSemantic from './ButtonSemantic';
+  import React from 'react';
+  import ButtonSemantic from './ButtonSemantic';
 
 export default class Donate extends React.Component {
 constructor(props) {

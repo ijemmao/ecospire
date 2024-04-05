@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { StripeProvider, Elements } from 'react-stripe-elements';
-import Login from './screens/Login';
-import Facts from './screens/Facts';
-import Calculate from './screens/Calculate';
-import Overview from './screens/Overview';
-import DonateScreen from './screens/DonateScreen';
-import DonationSuccess from './screens/DonationSuccess';
+  import React from 'react';
+  import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+  import { StripeProvider, Elements } from 'react-stripe-elements';
+  import Login from './screens/Login';
+  import Facts from './screens/Facts';
+  import Calculate from './screens/Calculate';
+  import Overview from './screens/Overview';
+  import DonateScreen from './screens/DonateScreen';
+  import DonationSuccess from './screens/DonationSuccess';
 
 const App = () => {
 return (
@@ -41,4 +41,4 @@ return (
 );
 };
 
-export default App;
+  export default App;

@@ -1,6 +1,6 @@
-/* eslint-disable react/prefer-stateless-function */
-import React from 'react';
-import ButtonSemantic from '../components/ButtonSemantic';
+  /* eslint-disable react/prefer-stateless-function */
+  import React from 'react';
+  import ButtonSemantic from '../components/ButtonSemantic';
 
 export default class Overview extends React.Component {
 render() {

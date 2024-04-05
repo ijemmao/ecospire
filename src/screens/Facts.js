@@ -1,23 +1,23 @@
-/* eslint-disable react/no-unused-state */
-import React from 'react';
-import axios from 'axios';
-import moment from 'moment';
-import Chart from 'chart.js';
-import { Dropdown } from 'semantic-ui-react';
-import Fact from './../components/Fact';
-import ButtonSemantic from './../components/ButtonSemantic';
-import airports from './../data/airports.json';
-import env from './../../env.json';
-import * as firebaseCalls from '../firebaseCalls';
+  /* eslint-disable react/no-unused-state */
+  import React from 'react';
+  import axios from 'axios';
+  import moment from 'moment';
+  import Chart from 'chart.js';
+  import { Dropdown } from 'semantic-ui-react';
+  import Fact from './../components/Fact';
+  import ButtonSemantic from './../components/ButtonSemantic';
+  import airports from './../data/airports.json';
+  import env from './../../env.json';
+  import * as firebaseCalls from '../firebaseCalls';
 
-const CLIENT_ID = env.GOOGLE_CLIENT_ID;
-const API_KEY = env.API_KEY;
-const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
-const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-const AVG_US_SPEED_KMM = 1.61;
-const C02_PER_KILOMETER = 120;
+  const CLIENT_ID = env.GOOGLE_CLIENT_ID;
+  const API_KEY = env.API_KEY;
+  const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
+  const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+  const AVG_US_SPEED_KMM = 1.61;
+  const C02_PER_KILOMETER = 120;
 
-let facts = [];
+  let facts = [];
 
 const barGraphData = {
 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],

@@ -1,11 +1,11 @@
-import React from 'react';
-import anime from 'animejs';
-import env from './../../env.json';
-import { getUserDetails } from '../firebaseCalls';
+  import React from 'react';
+  import anime from 'animejs';
+  import env from './../../env.json';
+  import { getUserDetails } from '../firebaseCalls';
 
-const GOOGLE_BUTTON_ID = 'google-login-button';
-const CLIENT_ID = env.GOOGLE_CLIENT_ID;
-const ROOT_URL = (env.mode === 'dev') ? 'http://localhost:8080' : 'deploy_url';
+  const GOOGLE_BUTTON_ID = 'google-login-button';
+  const CLIENT_ID = env.GOOGLE_CLIENT_ID;
+  const ROOT_URL = (env.mode === 'dev') ? 'http://localhost:8080' : 'deploy_url';
 
 export default class Login extends React.Component {
 constructor(props) {
